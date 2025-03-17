@@ -5,8 +5,8 @@ import {
   ManyToOne,
   OneToMany,
 } from 'typeorm';
-import { Author } from './author.entity';
-import { Rating } from './rating.entity';
+import { Author } from '../../authors/models/author.entity';
+import { Rating } from '../../ratings/models/rating.entity';
 
 @Entity()
 export class Book {
