@@ -14,7 +14,7 @@ export class BookResponseDto {
   publishedYear: number;
 
   @IsString()
-  authorName: string; // We can expose author's name or full details if required.
+  authorName: string;
 
   @IsOptional()
   @IsNumber()

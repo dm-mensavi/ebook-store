@@ -10,7 +10,7 @@ export class AuthorPresenter {
       bookCount: Number(raw.bookCount) || 0,
       averageRating:
         raw.averageRating !== null
-          ? parseFloat(Number(raw.averageRating).toFixed(2))
+          ? roundToTwo(Number(raw.averageRating))
           : null,
     };
   }
@@ -18,4 +18,7 @@ export class AuthorPresenter {
   static toResponseArray(rawAuthors: any[]): AuthorResponseDto[] {
     return rawAuthors.map((author) => this.toResponse(author));
   }
+}
+function roundToTwo(num: number): number {
+  return Math.round((num + Number.EPSILON) * 100) / 100;
 }
