@@ -19,8 +19,16 @@ export class BooksService {
   }
 
   // Get all Books with filters (search + sort)
-  async findAllBooks(search?: string, sortBy?: string, sortOrder?: 'ASC' | 'DESC'): Promise<any[]> {
-    return await this.booksRepository.findBooksWithFilters(search, sortBy, sortOrder);
+  async findAllBooks(
+    search?: string,
+    sortBy?: string,
+    sortOrder?: 'ASC' | 'DESC',
+  ): Promise<any[]> {
+    return await this.booksRepository.findBooksWithFilters(
+      search,
+      sortBy,
+      sortOrder,
+    );
   }
 
   // Get single Book details
@@ -33,7 +41,10 @@ export class BooksService {
   }
 
   // Update Book
-  async updateBook(bookId: string, updateBookDto: UpdateBookDto): Promise<Book> {
+  async updateBook(
+    bookId: string,
+    updateBookDto: UpdateBookDto,
+  ): Promise<Book> {
     const book = await this.booksRepository.findOne({
       where: { id: bookId },
       relations: ['author'],

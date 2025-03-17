@@ -19,12 +19,18 @@ export class RatingsService {
   }
 
   // Get Ratings for a Book, sorted by date
-  async findRatingsForBook(bookId: string, sortOrder: 'ASC' | 'DESC' = 'DESC'): Promise<any[]> {
+  async findRatingsForBook(
+    bookId: string,
+    sortOrder: 'ASC' | 'DESC' = 'DESC',
+  ): Promise<any[]> {
     return await this.ratingsRepository.findRatingsForBook(bookId, sortOrder);
   }
 
   // Update Rating (optional feature)
-  async updateRating(ratingId: string, updateRatingDto: UpdateRatingDto): Promise<Rating> {
+  async updateRating(
+    ratingId: string,
+    updateRatingDto: UpdateRatingDto,
+  ): Promise<Rating> {
     const rating = await this.ratingsRepository.findOneBy({ id: ratingId });
 
     if (!rating) {
