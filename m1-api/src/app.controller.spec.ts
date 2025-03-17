@@ -4,19 +4,24 @@ import { AppService } from './app.service';
 
 describe('AppController', () => {
   let appController: AppController;
+  let appService: AppService;
 
   beforeEach(async () => {
-    const app: TestingModule = await Test.createTestingModule({
+    const moduleRef: TestingModule = await Test.createTestingModule({
       controllers: [AppController],
       providers: [AppService],
     }).compile();
 
-    appController = app.get<AppController>(AppController);
+    appController = moduleRef.get<AppController>(AppController);
+    appService = moduleRef.get<AppService>(AppService);
   });
 
-  describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
+  describe('getHello()', () => {
+    it('should return welcome message', () => {
+      const result = 'Welcome to the Library Book Management System API!';
+      jest.spyOn(appService, 'getHello').mockReturnValue(result);
+
+      expect(appController.getHello()).toBe(result);
     });
   });
 });
