@@ -1,8 +1,13 @@
+'use client';
+
 import Link from 'next/link';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Typography from '@mui/material/Typography';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
 type BreadcrumbItem = {
   label: string;
-  href?: string; // No href = current page
+  href?: string;
 };
 
 type BreadcrumbProps = {
@@ -10,31 +15,43 @@ type BreadcrumbProps = {
 };
 
 const Breadcrumb = ({ items }: BreadcrumbProps) => {
+  const lastIndex = items.length - 1;
+
   return (
-    <nav className="flex text-sm text-gray-600 mb-6" aria-label="Breadcrumb">
-      {items.map((item, index) => {
-        const isLast = index === items.length - 1;
-
-        return (
-          <div key={index} className="flex items-center">
-            {!isLast && item.href ? (
-              <Link
-                href={item.href}
-                className="text-blue-600 hover:underline font-medium transition"
-              >
-                {item.label}
-              </Link>
-            ) : (
-              <span className="text-black font-semibold">{item.label}</span>
-            )}
-
-            {!isLast && (
-              <span className="mx-2 text-gray-400 select-none">/</span>
-            )}
-          </div>
-        );
-      })}
-    </nav>
+    <Breadcrumbs
+      separator={<NavigateNextIcon fontSize="small" />}
+      aria-label="breadcrumb"
+      sx={{
+        mb: 4,
+        fontSize: '0.875rem', // text-sm equivalent
+      }}
+    >
+      {items.map((item, index) =>
+        item.href && index !== lastIndex ? (
+          <Link
+            key={index}
+            href={item.href}
+            style={{
+              color: '#2563EB', // Tailwind's text-blue-600 color
+              textDecoration: 'none',
+              fontWeight: 500,
+            }}
+          >
+            {item.label}
+          </Link>
+        ) : (
+          <Typography
+            key={index}
+            sx={{
+              color: '#111827', // Tailwind's text-gray-900 color
+              fontWeight: 600,
+            }}
+          >
+            {item.label}
+          </Typography>
+        )
+      )}
+    </Breadcrumbs>
   );
 };
 
