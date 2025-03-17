@@ -1,14 +1,24 @@
+import { ApiPropertyOptional } from '@nestjs/swagger';
 import { IsOptional, IsString, IsIn } from 'class-validator';
 
 export class FilterBookDto {
+  @ApiPropertyOptional({
+    example: 'Harry Potter',
+    description: 'Search for books by title',
+  })
   @IsOptional()
   @IsString()
-  search?: string; // Filter by title
+  search?: string;
 
+  @ApiPropertyOptional({
+    example: 'publishedYear',
+    enum: ['title', 'price', 'publishedYear'],
+  })
   @IsOptional()
-  @IsIn(['title', 'publishedYear', 'price'])
+  @IsIn(['title', 'price', 'publishedYear'])
   sortBy?: string;
 
+  @ApiPropertyOptional({ example: 'ASC', enum: ['ASC', 'DESC'] })
   @IsOptional()
   @IsIn(['ASC', 'DESC'])
   sortOrder?: 'ASC' | 'DESC';

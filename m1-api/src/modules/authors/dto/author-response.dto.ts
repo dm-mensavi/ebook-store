@@ -1,23 +1,41 @@
-import { IsUUID, IsString, IsOptional, IsNumber } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class AuthorResponseDto {
-  @IsUUID()
+  @ApiProperty({
+    example: 'd9d7b00e-12ab-4a22-a2f8-1cbfdf2b9444',
+    description: 'Unique identifier for the author',
+  })
   id: string;
 
-  @IsString()
+  @ApiProperty({
+    example: 'J.K. Rowling',
+    description: 'Name of the author',
+  })
   name: string;
 
-  @IsString()
+  @ApiProperty({
+    example: 'https://example.com/jk-rowling.jpg',
+    description: 'URL of the author photo',
+  })
   photo: string;
 
-  @IsOptional()
-  @IsString()
+  @ApiProperty({
+    example: 'British author, best known for the Harry Potter series.',
+    nullable: true,
+    description: 'Biography of the author',
+  })
   biography?: string;
 
-  @IsNumber()
+  @ApiProperty({
+    example: 7,
+    description: 'Number of books written by this author',
+  })
   bookCount: number;
 
-  @IsOptional()
-  @IsNumber()
+  @ApiProperty({
+    example: 4.75,
+    nullable: true,
+    description: 'Average rating of all books by the author',
+  })
   averageRating: number | null;
 }
