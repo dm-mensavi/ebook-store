@@ -29,6 +29,18 @@ export class AuthorsService {
     return author;
   }
 
+  async findAllAuthorsWithStatsAndFilters(
+    search?: string,
+    sortBy?: string,
+    sortOrder?: 'ASC' | 'DESC',
+  ): Promise<any[]> {
+    return await this.authorsRepository.findAuthorsWithStatsAndFilters(
+      search,
+      sortBy,
+      sortOrder,
+    );
+  }
+
   // Update author
   async updateAuthor(
     authorId: string,

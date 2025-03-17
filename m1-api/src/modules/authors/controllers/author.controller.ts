@@ -11,6 +11,7 @@ import {
 import { AuthorsService } from '../services/author.service';
 import { CreateAuthorDto } from '../dto/create-author.dto';
 import { UpdateAuthorDto } from '../dto/update-author.dto';
+import { FilterAuthorDto } from '../dto/filter-authors.dto';
 
 @Controller('authors')
 export class AuthorsController {
@@ -24,8 +25,13 @@ export class AuthorsController {
 
   // Get all authors with stats
   @Get()
-  findAll() {
-    return this.authorsService.findAllAuthorsWithStats();
+  findAll(@Query() filterAuthorDto: FilterAuthorDto) {
+    const { search, sortBy, sortOrder } = filterAuthorDto;
+    return this.authorsService.findAllAuthorsWithStatsAndFilters(
+      search,
+      sortBy,
+      sortOrder,
+    );
   }
 
   // Get author by id with stats
