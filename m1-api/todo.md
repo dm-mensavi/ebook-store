@@ -1,6 +1,6 @@
 # 📚 Book Management System - Backend Roadmap (Prompt-Based with ChatGPT)
 
-This document outlines a structured **step-by-step prompting plan** for building the entire backend system of the **Library Book Management System**, using **ChatGPT** and following the provided project subject instructions.
+This document outlines a structured plan for building the entire backend system of the **Library Book Management System**
 
 ---
 
