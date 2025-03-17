@@ -1,73 +1,210 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+Absolutely! Here’s a clean, professional `README.md` for your **Backend (NestJS + SQLite) Book Management System**. It explains what the project is, how to run it, technologies used, and the API overview.
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Feel free to customize the project name, author credits, etc.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+---
 
-## Description
+# 📚 Library Book Management System (Backend)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+A backend application built with **NestJS**, **TypeORM**, and **SQLite**, providing a complete **Library Book Management System**.
 
-## Installation
+This system manages **Authors**, **Books**, and **Ratings**, offering CRUD functionality, search and filter capabilities, and relations between the entities.
 
-```bash
-$ npm install
+---
+
+## 🚀 Features
+
+✅ Manage Authors (CRUD)  
+✅ Manage Books (CRUD)  
+✅ Rate Books (CRUD)  
+✅ Search and Filter functionality  
+✅ Relational data with computed fields (average ratings, book counts)  
+✅ RESTful API built with **NestJS**  
+✅ SQLite database using **TypeORM**  
+✅ Global validation and clean functional programming practices  
+✅ Fully unit-tested services and controllers  
+✅ E2E testing with **Supertest**  
+✅ Code style enforced with **ESLint** and **Prettier**
+
+---
+
+## 🛠️ Tech Stack
+
+| Name         | Description                     |
+|--------------|---------------------------------|
+| **NestJS**   | Backend Framework (Node.js + TypeScript) |
+| **TypeORM**  | ORM for database interaction    |
+| **SQLite**   | Lightweight SQL database        |
+| **Jest**     | Unit & E2E testing framework    |
+| **Supertest**| E2E HTTP assertions             |
+| **ESLint**   | Code linting                   |
+| **Prettier** | Code formatting                |
+
+---
+
+## 📂 Project Structure
+
+```
+src/
+  modules/
+    authors/
+      controllers/
+      dto/
+      models/
+      presenters/
+      repositories/
+      services/
+    books/
+      ...
+    ratings/
+      ...
+  app.controller.ts
+  app.service.ts
+  app.module.ts
 ```
 
-## Running the app
+---
 
+## ⚙️ Installation
+
+### Prerequisites
+- Node.js (v18+ recommended)
+- npm (v9+)
+
+---
+
+### 1. Clone the Repository
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+git clone https://github.com/your-username/library-book-management-backend.git
+cd library-book-management-backend
 ```
 
-## Test
+---
 
+### 2. Install Dependencies
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+npm install
 ```
 
-## Support
+---
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### 3. Running the Application
+#### Development (watch mode)
+```bash
+npm run start:dev
+```
 
-## Stay in touch
+#### Production
+```bash
+npm run build
+npm run start:prod
+```
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+---
+
+### 4. Database
+- Uses **SQLite** (no setup needed)
+- Database file: `library.db`  
+- Automatically created when running the app (`synchronize: true` in `TypeORM`)
+
+---
+
+### 5. Running Tests
+#### Unit Tests
+```bash
+npm run test
+```
+
+#### E2E Tests
+```bash
+npm run test:e2e
+```
+
+#### Test Coverage
+```bash
+npm run test:cov
+```
+
+---
+
+## 📝 API Endpoints Overview
+
+### Root
+- `GET /`  
+  Health check / welcome message.
+
+---
+
+### Authors
+| Method | Endpoint     | Description                        |
+|--------|--------------|------------------------------------|
+| GET    | `/authors`   | List authors (search, sort)       |
+| GET    | `/authors/:id` | Author details with stats       |
+| POST   | `/authors`   | Create a new author               |
+| PATCH  | `/authors/:id` | Update an author                |
+| DELETE | `/authors/:id` | Delete an author                |
+
+---
+
+### Books
+| Method | Endpoint     | Description                         |
+|--------|--------------|-------------------------------------|
+| GET    | `/books`     | List books (search, sort)          |
+| GET    | `/books/:id` | Book details with average rating   |
+| POST   | `/books`     | Create a new book                  |
+| PATCH  | `/books/:id` | Update a book                      |
+| DELETE | `/books/:id` | Delete a book                      |
+
+---
+
+### Ratings
+| Method | Endpoint                  | Description                        |
+|--------|---------------------------|------------------------------------|
+| GET    | `/ratings/book/:bookId`   | Get ratings for a specific book    |
+| POST   | `/ratings`                | Add a new rating                   |
+| PATCH  | `/ratings/:id`            | Update a rating (optional)         |
+| DELETE | `/ratings/:id`            | Delete a rating (optional)         |
+
+---
+
+## ⚙️ Functional Programming & Validation
+- Global validation using NestJS `ValidationPipe`
+- FP practices:  
+  - `map()`, `filter()` instead of `for`/`if`  
+  - Nullish coalescing (`??`) and destructuring  
+- Clean, reusable Presenters to shape API responses
+
+---
+
+## 📚 Documentation
+- Swagger (optional, future step)
+- See `src/modules/**` for DTOs, Presenters, and Repositories
+
+---
+
+## 🧪 Testing
+- 100% unit test coverage for services and controllers
+- E2E tests cover HTTP requests & database integration
+- Run `npm run test:cov` for coverage reports
+
+---
+
+## 📌 To-Do / Improvements
+- Add Swagger API docs (`@nestjs/swagger`)
+- Seed database with fixtures
+- Implement user authentication (optional)
+- Pagination for large datasets (optional)
+- Dockerize the app (optional)
+
+---
+
+## ✨ Author(s)
+**Library Book Management Backend**  
+Built by [Your Name / Team Name]
+
+---
 
 ## License
+This project is licensed under the MIT License.
 
-Nest is [MIT licensed](LICENSE).
+---
