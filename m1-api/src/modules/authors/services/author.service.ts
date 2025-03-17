@@ -63,4 +63,9 @@ export class AuthorsService {
       throw new NotFoundException(`Author with id ${authorId} not found`);
     }
   }
+
+  // Clear all authors
+  async clearAllAuthors(): Promise<void> {
+    await this.authorsRepository.clear(); // clears all records
+  }
 }

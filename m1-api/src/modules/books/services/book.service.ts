@@ -70,4 +70,9 @@ export class BooksService {
       throw new NotFoundException(`Book with id ${bookId} not found`);
     }
   }
+
+  // clears all records
+  async clearAllBooks(): Promise<void> {
+    await this.booksRepository.clear();
+  }
 }

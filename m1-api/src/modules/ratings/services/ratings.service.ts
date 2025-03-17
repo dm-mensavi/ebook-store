@@ -49,4 +49,9 @@ export class RatingsService {
       throw new NotFoundException(`Rating with id ${ratingId} not found`);
     }
   }
+
+  // Clear rating
+  async clearAllRatings(): Promise<void> {
+    await this.ratingsRepository.clear();
+  }
 }
