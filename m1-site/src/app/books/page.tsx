@@ -1,100 +1,73 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
-import { getBookById, deleteBook } from '../../providers/bookProvider';
+
+// ✅ Layout & Components
+import GlobalLayout from '../../components/layout/GlobalLayout';
+import BookList from '../../components/books/BookList';
+
+// ✅ API provider
+import { getBooks } from '../../providers/bookProvider';
+
+// ✅ Models (optional but useful for type checking)
 import { Book } from '../../models/Book';
-import Link from 'next/link';
-import Breadcrumb from '../../components/ui/Breadcrumb';
-import Modal from '../../components/ui/Modal';
 
-const BookDetailsPage = () => {
-  const { id } = useParams<{ id: string }>();
-  const router = useRouter();
+export default function BooksPage() {
+  // ✅ States
+  const [books, setBooks] = useState<Book[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const [book, setBook] = useState<Book | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
+  // ✅ Fetch books on mount
   useEffect(() => {
-    const fetchBook = async () => {
-      if (!id) return;
-
+    const fetchBooks = async () => {
       try {
         setLoading(true);
-        const bookData = await getBookById(Number(id));
-        setBook(bookData);
+        const booksData = await getBooks();
+        setBooks(booksData);
       } catch (error) {
-        console.error('Error fetching book details:', error);
+        console.error('Error fetching books:', error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchBook();
-  }, [id]);
+    fetchBooks();
+  }, []);
 
-  const handleDelete = async () => {
+  // ✅ Callback to refresh books after an operation (create/delete etc.)
+  const handleBooksUpdated = async () => {
     try {
-      await deleteBook(Number(id));
-      router.push('/books');
+      const updatedBooks = await getBooks();
+      setBooks(updatedBooks);
     } catch (error) {
-      console.error('Error deleting book:', error);
+      console.error('Error refreshing books:', error);
     }
   };
 
-  if (loading || !book) return <p className="p-8">Loading...</p>;
+  if (loading) {
+    return (
+      <GlobalLayout
+        breadcrumbs={[
+          { label: 'Home', href: '/' },
+          { label: 'Books' },
+        ]}
+      >
+        <p>Loading books...</p>
+      </GlobalLayout>
+    );
+  }
 
   return (
-    <div className="p-8">
-      {/* Breadcrumb Navigation */}
-      <Breadcrumb
-        items={[
-          { label: 'Home', href: '/' },
-          { label: 'Books', href: '/books' },
-          { label: book.title }
-        ]}
-      />
+    <GlobalLayout
+      breadcrumbs={[
+        { label: 'Home', href: '/' },
+        { label: 'Books' },
+      ]}
+    >
+      <h1 className="text-3xl font-bold mb-4">Books List</h1>
 
-      {/* Book Details */}
-      <h1 className="text-3xl font-bold mb-4">{book.title}</h1>
-
-      <div className="mb-4">
-        <p><strong>Published Year:</strong> {book.publishedYear}</p>
-        <p><strong>Price:</strong> €{book.price}</p>
-        <p>
-          <strong>Author:</strong>{' '}
-          <Link href={`/authors/${book.author.id}`} className="text-blue-500 hover:underline">
-            {book.author.name}
-          </Link>
-        </p>
-        {book.averageRating !== undefined && (
-          <p><strong>Average Rating:</strong> {book.averageRating}</p>
-        )}
-      </div>
-
-      {/* Delete Button */}
-      <button
-        onClick={() => setIsModalOpen(true)}
-        className="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-      >
-        Delete Book
-      </button>
-
-      {/* Confirmation Modal */}
-      <Modal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onConfirm={() => {
-          handleDelete();
-          setIsModalOpen(false);
-        }}
-        title="Confirm Deletion"
-      >
-        <p>Are you sure you want to delete <strong>{book.title}</strong>?</p>
-      </Modal>
-    </div>
+      {/* ✅ Book List */}
+      <BookList books={books} />
+    </GlobalLayout>
   );
-};
-
-export default BookDetailsPage;
+}

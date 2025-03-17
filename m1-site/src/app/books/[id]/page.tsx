@@ -6,11 +6,8 @@ import { getBookById, deleteBook } from '../../../providers/bookProvider';
 import { Book } from '../../../models/Book';
 import Link from 'next/link';
 
-// MUI imports
-import Breadcrumbs from '@mui/material/Breadcrumbs';
-import MuiLink from '@mui/material/Link';
+// ✅ MUI Components
 import Typography from '@mui/material/Typography';
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -18,7 +15,8 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 
-
+// ✅ Global Layout import
+import GlobalLayout from '../../../components/layout/GlobalLayout';
 
 const BookDetailsPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -55,45 +53,49 @@ const BookDetailsPage = () => {
     }
   };
 
-  if (loading || !book) return <Typography>Loading...</Typography>;
-
-  return (
-    <div className="p-8">
-      {/* MUI Breadcrumb Navigation */}
-      <Breadcrumbs
-        separator={<NavigateNextIcon fontSize="small" />}
-        aria-label="breadcrumb"
-        sx={{ mb: 4 }}
+  // ✅ Show loading state
+  if (loading || !book) {
+    return (
+      <GlobalLayout
+        breadcrumbs={[
+          { label: 'Home', href: '/' },
+          { label: 'Books', href: '/books' },
+          { label: 'Loading...' },
+        ]}
       >
-        <MuiLink underline="hover" color="inherit" href="/">
-          Home
-        </MuiLink>
-        <MuiLink underline="hover" color="inherit" href="/books">
-          Books
-        </MuiLink>
-        <Typography color="text.primary">{book.title}</Typography>
-      </Breadcrumbs>
+        <Typography>Loading book details...</Typography>
+      </GlobalLayout>
+    );
+  }
 
-      {/* Book Details */}
+  // ✅ Page content inside GlobalLayout
+  return (
+    <GlobalLayout
+      breadcrumbs={[
+        { label: 'Home', href: '/' },
+        { label: 'Books', href: '/books' },
+        { label: book.title },
+      ]}
+    >
       <Typography variant="h4" component="h1" gutterBottom>
         {book.title}
       </Typography>
 
-      <Typography><strong>Published Year:</strong> {book.publishedYear}</Typography>
-      <Typography><strong>Price:</strong> €{book.price}</Typography>
-      <Typography>
-        <strong>Author:</strong>{' '}
-        <Link href={`/authors/${book.author.id}`} legacyBehavior>
-          <MuiLink underline="hover" color="primary">
-            {book.author.name}
-          </MuiLink>
-        </Link>
-      </Typography>
-      {book.averageRating !== undefined && (
-        <Typography><strong>Average Rating:</strong> {book.averageRating}</Typography>
-      )}
+      <div className="space-y-2 mb-4">
+        <Typography><strong>Published Year:</strong> {book.publishedYear}</Typography>
+        <Typography><strong>Price:</strong> €{book.price}</Typography>
+        <Typography>
+          <strong>Author:</strong>{' '}
+          <Link href={`/authors/${book.author.id}`} legacyBehavior>
+            <a className="text-blue-600 hover:underline">{book.author.name}</a>
+          </Link>
+        </Typography>
+        {book.averageRating !== undefined && (
+          <Typography><strong>Average Rating:</strong> {book.averageRating}</Typography>
+        )}
+      </div>
 
-      {/* Delete Button */}
+      {/* ✅ Delete Button */}
       <Button
         variant="contained"
         color="error"
@@ -103,16 +105,14 @@ const BookDetailsPage = () => {
         Delete Book
       </Button>
 
-      {/* MUI Confirmation Dialog */}
+      {/* ✅ Confirmation Dialog */}
       <Dialog
         open={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         aria-labelledby="confirm-delete-dialog-title"
         aria-describedby="confirm-delete-dialog-description"
       >
-        <DialogTitle id="confirm-delete-dialog-title">
-          Confirm Deletion
-        </DialogTitle>
+        <DialogTitle id="confirm-delete-dialog-title">Confirm Deletion</DialogTitle>
         <DialogContent>
           <DialogContentText id="confirm-delete-dialog-description">
             Are you sure you want to delete <strong>{book.title}</strong>?
@@ -132,7 +132,7 @@ const BookDetailsPage = () => {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </GlobalLayout>
   );
 };
 
