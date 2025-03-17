@@ -1,7 +1,7 @@
-import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -15,17 +15,20 @@ async function bootstrap() {
   );
 
   const config = new DocumentBuilder()
-    .setTitle('Library Book Management System')
-    .setDescription('API documentation for the Library Book Management System')
+    .setTitle('📚 Library Book Management System API')
+    .setDescription(
+      `
+      <h3>Welcome to the Library API</h3>
+      <p>This API allows you to manage authors, books, and ratings in your library.</p>
+    `,
+    )
     .setVersion('1.0')
-    .addTag('Authors')
-    .addTag('Books')
-    .addTag('Ratings')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api/docs', app, document);
 
-  await app.listen(3000);
+  await app.listen(3001);
+  app.enableCors();
 }
 bootstrap();
