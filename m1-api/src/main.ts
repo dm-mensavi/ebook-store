@@ -30,5 +30,6 @@ async function bootstrap() {
 
   await app.listen(3001);
   app.enableCors();
+  console.log(`🚀 API listening on PORT ${process.env.PORT}`);
 }
 bootstrap();
