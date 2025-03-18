@@ -39,7 +39,7 @@ const EntityFormModal: React.FC<EntityFormModalProps> = ({
       });
       setFormData(defaults);
     }
-  }, [isOpen]); // ✅ Run only when opening the modal
+  }, [isOpen]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
