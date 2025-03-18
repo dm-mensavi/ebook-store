@@ -14,3 +14,18 @@ export const getAuthors = async (): Promise<Author[]> => {
     throw error;
   }
 };
+
+// POST - Add a new author
+export const addAuthor = async (authorData: {
+  name: string;
+  photo?: string;
+  biography?: string;
+}) => {
+  try {
+    const response = await axios.post(API_URL, authorData);
+    return response.data;
+  } catch (error) {
+    console.error("Failed to add author:", error);
+    throw error;
+  }
+};
