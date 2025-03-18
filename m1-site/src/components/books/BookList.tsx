@@ -1,20 +1,48 @@
-import { Book } from '../../models/Book';
-import BookCard from './BookCard';
+"use client";
 
-type BookListProps = {
-  books: Book[];
-};
+import React, { useEffect, useState } from "react";
+import { getBooks } from "../../providers/bookProvider"; // Your API fetch call
+import { Book } from "../../models/Book"; // Updated model
+import BookCard from "./BookCard";
+import Loading from "../ui/Loading";
 
-const BookList = ({ books }: BookListProps) => {
-  if (!books.length) {
-    return <p>No books found.</p>;
+const BookList: React.FC = () => {
+  const [books, setBooks] = useState<Book[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchBooks = async () => {
+      try {
+        const booksData = await getBooks();
+        setBooks(booksData);
+      } catch (err) {
+        setError("Failed to fetch books.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBooks();
+  }, []);
+
+  if (loading) {
+    return <Loading message="Fetching books..." />;
+  }
+
+  if (error) {
+    return <div className="text-center text-red-500">{error}</div>;
   }
 
   return (
-    <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-      {books.map((book) => (
-        <BookCard key={book.id} book={book} />
-      ))}
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      {books.length === 0 ? (
+        <div className="col-span-full text-center text-gray-500">
+          No books found.
+        </div>
+      ) : (
+        books.map((book) => <BookCard key={book.title} book={book} />)
+      )}
     </div>
   );
 };

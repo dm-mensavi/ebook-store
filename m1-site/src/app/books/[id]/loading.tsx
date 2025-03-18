@@ -1,5 +1,5 @@
 // /src/app/books/[id]/loading.tsx
-import React from 'react';
+import React from "react";
 
 const Loading = () => {
   return (

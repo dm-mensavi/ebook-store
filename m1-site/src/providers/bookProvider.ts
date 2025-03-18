@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Book } from '../models/Book';
 
 //local server url 
-const API_URL = 'http://localhost:3001/api'; // Local server
+const API_URL = 'http://localhost:3001'; // Local server
 
 //getting the list of books
 export const getBooks = async (): Promise<Book[]> => {

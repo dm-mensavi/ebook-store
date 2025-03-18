@@ -1,4 +1,4 @@
-// File: C:\Users\user\OneDrive - JUNIA Grande école d'ingénieurs\Documents\NIEL\Book_Management\m1-site\src\app\books\page.tsx
+// File: C:\Users\godfr\OneDrive - JUNIA Grande école d'ingénieurs\Desktop\book\Book_Management\m1-site\src\app\books\page.tsx
 import * as entry from '../../../../src/app/books/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
