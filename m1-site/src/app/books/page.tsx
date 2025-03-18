@@ -1,7 +1,12 @@
-import React from "react";
+"use client";
 
-function page() {
-  return <div>Books</div>;
+import BookList from "../../components/books/BookList";
+
+export default function BooksPage() {
+  return (
+    <>
+      <h1 className="text-3xl font-bold mb-4">Books List</h1>
+      <BookList />
+    </>
+  );
 }
-
-export default page;
