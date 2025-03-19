@@ -44,6 +44,7 @@
 
 import React from "react";
 import { Author } from "../../models/Author";
+import DrawerComponent from "../layout/DrawerComponent";
 
 interface AuthorCardProps {
   author: Author;
@@ -75,6 +76,9 @@ const AuthorCard: React.FC<AuthorCardProps> = ({ author }) => {
         <div>
           <span className="font-medium">Rating:</span>{" "}
           {author.averageRating ?? "N/A"} ⭐
+        </div>
+        <div>
+          <DrawerComponent />
         </div>
       </div>
     </div>

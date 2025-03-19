@@ -1,28 +1,29 @@
-'use client';
+"use client";
 
-import '../styles/globals.css';
+import "../styles/globals.css";
 
-import { useState } from 'react';
-import Modal from '../components/ui/Modal';
-import GlobalLayout from '../components/layout/GlobalLayout';
+import { useState } from "react";
+import Modal from "../components/ui/Modal";
+import GlobalLayout from "../components/layout/GlobalLayout";
+import DrawerComponent from "../components/layout/DrawerComponent";
+import { AppBar, Toolbar, Typography } from "@mui/material";
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleConfirm = () => {
-    alert('Confirmed action!');
+    alert("Confirmed action!");
     setIsModalOpen(false);
   };
 
   return (
     <GlobalLayout
-      breadcrumbs={[
-        { label: 'Home', href: '/' },
-        { label: 'Dashboard' },
-      ]}
+      breadcrumbs={[{ label: "Home", href: "/" }, { label: "Dashboard" }]}
     >
       {/* Page content */}
-      <h1 className="text-4xl font-bold text-blue-600">Hello World with Custom Components!</h1>
+      <h1 className="text-4xl font-bold text-blue-600">
+        Hello World with Custom Components!
+      </h1>
 
       <button
         onClick={() => setIsModalOpen(true)}
