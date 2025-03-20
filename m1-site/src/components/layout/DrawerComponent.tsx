@@ -58,9 +58,13 @@ import RatingCard from "../ratings/RatingCard";
 
 type DrawerComponentProps = {
   bookId: string; // Add bookId as a prop
+  averageRating: number;
 };
 
-const DrawerComponent: React.FC<DrawerComponentProps> = ({ bookId }) => {
+const DrawerComponent: React.FC<DrawerComponentProps> = ({
+  bookId,
+  averageRating,
+}) => {
   const labels: { [index: string]: string } = {
     0.5: "Useless",
     1: "Useless+",
@@ -99,10 +103,22 @@ const DrawerComponent: React.FC<DrawerComponentProps> = ({ bookId }) => {
       </div>
 
       {/* Temporary Drawer */}
-      <Drawer anchor="left" open={isDrawerOpen} onClose={toggleDrawer(false)}>
+      <Drawer
+        anchor="left"
+        open={isDrawerOpen}
+        onClose={toggleDrawer(false)}
+        style={{ width: 300 }}
+        PaperProps={{
+          style: { width: 300, padding: "10px", backgroundColor: "#eee" },
+        }}
+      >
+        {/*  style={{ width: 300 }} // Set the width of the drawer
+      PaperProps={{
+        style: { width: 300 }, // Set the width of the drawer's paper (content area)
+      }} */}
         <List>
           {/* Pass the bookId to the RatingCard */}
-          <RatingCard bookId={bookId} />
+          <RatingCard bookId={bookId} averageRating={averageRating} />
         </List>
       </Drawer>
     </div>

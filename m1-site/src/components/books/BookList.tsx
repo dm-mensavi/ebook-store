@@ -7,6 +7,8 @@ import BookCard from "./BookCard";
 import Loading from "../ui/Loading";
 import "../../styles/globals.css";
 import CreateBookModal from "./CreateBookModal";
+import Link from "next/link";
+import { toast } from "react-toastify";
 
 const BookList: React.FC = () => {
   const [books, setBooks] = useState<Book[]>([]);
@@ -25,6 +27,7 @@ const BookList: React.FC = () => {
         setBooks(booksData);
       } catch (err) {
         setError("Failed to fetch books.");
+        toast.error("Failed to fetch books.");
       } finally {
         setLoading(false);
       }
@@ -42,8 +45,10 @@ const BookList: React.FC = () => {
     try {
       const newBook = await createBook(book); // Call the API to create a book
       setBooks((prevBooks) => [...prevBooks, newBook]); // Update the book list
+      toast.success("Book created successfully.");
     } catch (err) {
       console.error("Failed to create book:", err);
+      toast.error("Failed to create book.");
     }
   };
 
@@ -141,7 +146,11 @@ const BookList: React.FC = () => {
             No books found.
           </div>
         ) : (
-          sortedBooks.map((book) => <BookCard key={book.id} book={book} />)
+          sortedBooks.map((book) => (
+            <Link key={book.id} href={`/books/${book.id}`}>
+              <BookCard key={book.id} book={book} />
+            </Link>
+          ))
         )}
       </div>
     </>

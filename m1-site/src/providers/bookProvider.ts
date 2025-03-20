@@ -16,7 +16,7 @@ export const getBooks = async (): Promise<Book[]> => {
 };
 
 //fetch the book by id
-export const getBookById = async (id: number): Promise<Book> => {
+export const getBookById = async (id: string): Promise<Book> => {
   try {
     const response = await axios.get(`${API_URL}/books/${id}`);
     return response.data;
@@ -43,7 +43,7 @@ export const createBook = async (bookData: {
 };
 
 //to delete the book by ID
-export const deleteBook = async (id: number): Promise<void> => {
+export const deleteBook = async (id: string): Promise<void> => {
   try {
     await axios.delete(`${API_URL}/books/${id}`);
   } catch (error) {
