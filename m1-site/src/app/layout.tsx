@@ -34,11 +34,14 @@
 // }
 
 // app/layout.tsx
+
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../styles/globals.css";
-import { ToastContainer } from "react-toastify"; // Import ToastContainer
-import "react-toastify/dist/ReactToastify.css"; // Import the CSS
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import GlobalLayout from "../components/layout/GlobalLayout"; 
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -54,8 +57,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        {children}
+     <body className={inter.className}>
+
+        <GlobalLayout> {/* ✅ Wrap the page content inside GlobalLayout */}
+          {children}
+       
+
         <ToastContainer
           position="top-right"
           autoClose={3000}
@@ -67,6 +74,7 @@ export default function RootLayout({
           draggable
           pauseOnHover
         />
+         </GlobalLayout>
       </body>
     </html>
   );
