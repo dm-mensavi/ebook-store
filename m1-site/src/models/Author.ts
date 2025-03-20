@@ -1,5 +1,5 @@
 export type Author = {
-  id: number;
+  id: string;
   name: string;
   photo?: string; // Optional: you might not have a photo always.
   biography?: string; // Optional: biography of the author.

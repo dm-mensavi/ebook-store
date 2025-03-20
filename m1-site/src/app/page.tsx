@@ -5,7 +5,7 @@ import "../styles/globals.css";
 import { useState } from "react";
 import Modal from "../components/ui/Modal";
 import GlobalLayout from "../components/layout/GlobalLayout";
-import DrawerComponent from "../components/layout/DrawerComponent";
+
 import { AppBar, Toolbar, Typography } from "@mui/material";
 
 export default function Home() {
@@ -32,14 +32,14 @@ export default function Home() {
         Open Custom Modal
       </button>
 
-      <Modal
+      {/* <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onConfirm={handleConfirm}
         title="Confirm Action"
-      >
-        <p>This is your custom modal! Confirm or cancel the action.</p>
-      </Modal>
+      > */}
+      <p>This is your custom modal! Confirm or cancel the action.</p>
+      {/* </Modal> */}
     </GlobalLayout>
   );
 }
