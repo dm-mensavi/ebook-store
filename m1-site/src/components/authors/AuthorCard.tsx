@@ -77,9 +77,7 @@ const AuthorCard: React.FC<AuthorCardProps> = ({ author }) => {
           <span className="font-medium">Rating:</span>{" "}
           {author.averageRating ?? "N/A"} ⭐
         </div>
-        <div>
-          <DrawerComponent bookId={author.id} />
-        </div>
+        <div>{/* <DrawerComponent bookId={author.id} /> */}</div>
       </div>
     </div>
   );
