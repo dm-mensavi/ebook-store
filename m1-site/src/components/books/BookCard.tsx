@@ -117,7 +117,10 @@ const BookCard: React.FC<BookCardProps> = ({ book }) => {
       >
         {showRatings ? "Hide Ratings" : "Show Ratings"}
       </button> */}
-      <DrawerComponent bookId={book.id} />
+      <DrawerComponent
+        bookId={book.id}
+        averageRating={book.averageRating ?? 0}
+      />
       {/* {showRatings && <RatingCard bookId={book.id} />} */}
     </div>
   );

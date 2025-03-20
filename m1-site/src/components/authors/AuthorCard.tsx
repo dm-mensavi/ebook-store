@@ -44,7 +44,8 @@
 
 import React from "react";
 import { Author } from "../../models/Author";
-import DrawerComponent from "../layout/DrawerComponent";
+import Rating from "@mui/material/Rating"; // Import MUI Rating
+import StarIcon from "@mui/icons-material/Star"; // Import StarIcon
 
 interface AuthorCardProps {
   author: Author;
@@ -73,12 +74,20 @@ const AuthorCard: React.FC<AuthorCardProps> = ({ author }) => {
           <span className="font-medium">Books:</span>{" "}
           {author.numberOfBooks ?? author.bookCount ?? 0}
         </div>
-        <div>
+        <div className="flex items-center">
           <span className="font-medium">Rating:</span>{" "}
-          {author.averageRating ?? "N/A"} ⭐
-        </div>
-        <div>
-          <DrawerComponent bookId={author.id} />
+          <Rating
+            name="author-rating"
+            value={author.averageRating ?? 0} // Use 0 if averageRating is undefined
+            precision={0.1} // Show decimal places for the average
+            readOnly // Make the rating read-only
+            emptyIcon={
+              <StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />
+            }
+          />
+          <span className="ml-2 text-gray-600">
+            ({author.averageRating?.toFixed(1) ?? "N/A"})
+          </span>
         </div>
       </div>
     </div>
