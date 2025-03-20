@@ -7,4 +7,5 @@ export type Book = {
   price: number;
   authorName: string; // The related author (nested object)
   averageRating?: number; // Optional: average of ratings
+  authorId: string;
 };
