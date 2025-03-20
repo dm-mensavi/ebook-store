@@ -17,7 +17,7 @@ exports.modules = {
   \************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (\"8d15c78def2f\");\nif (false) {}\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiKHJzYykvLi9ub2RlX21vZHVsZXMvcmVhY3QtdG9hc3RpZnkvZGlzdC9SZWFjdFRvYXN0aWZ5LmNzcyIsIm1hcHBpbmdzIjoiOzs7O0FBQUEsaUVBQWUsY0FBYztBQUM3QixJQUFJLEtBQVUsRUFBRSxFQUF1QiIsInNvdXJjZXMiOlsid2VicGFjazovL20xLXNpdGUvLi9ub2RlX21vZHVsZXMvcmVhY3QtdG9hc3RpZnkvZGlzdC9SZWFjdFRvYXN0aWZ5LmNzcz9jNGIzIl0sInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBkZWZhdWx0IFwiOGQxNWM3OGRlZjJmXCJcbmlmIChtb2R1bGUuaG90KSB7IG1vZHVsZS5ob3QuYWNjZXB0KCkgfVxuIl0sIm5hbWVzIjpbXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///(rsc)/./node_modules/react-toastify/dist/ReactToastify.css\n");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (\"8d15c78def2f\");\nif (false) {}\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiKHJzYykvLi9ub2RlX21vZHVsZXMvcmVhY3QtdG9hc3RpZnkvZGlzdC9SZWFjdFRvYXN0aWZ5LmNzcyIsIm1hcHBpbmdzIjoiOzs7O0FBQUEsaUVBQWUsY0FBYztBQUM3QixJQUFJLEtBQVUsRUFBRSxFQUF1QiIsInNvdXJjZXMiOlsid2VicGFjazovL20xLXNpdGUvLi9ub2RlX21vZHVsZXMvcmVhY3QtdG9hc3RpZnkvZGlzdC9SZWFjdFRvYXN0aWZ5LmNzcz9mNTE4Il0sInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBkZWZhdWx0IFwiOGQxNWM3OGRlZjJmXCJcbmlmIChtb2R1bGUuaG90KSB7IG1vZHVsZS5ob3QuYWNjZXB0KCkgfVxuIl0sIm5hbWVzIjpbXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///(rsc)/./node_modules/react-toastify/dist/ReactToastify.css\n");
 
 /***/ }),
 
@@ -52,23 +52,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var next_dist_build_webpack_loaders_next_flight_loader_module_proxy__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! next/dist/build/webpack/loaders/next-flight-loader/module-proxy */ "(rsc)/./node_modules/next/dist/build/webpack/loaders/next-flight-loader/module-proxy.js");
 
 
-const e0 = (0,next_dist_build_webpack_loaders_next_flight_loader_module_proxy__WEBPACK_IMPORTED_MODULE_0__.createProxy)(String.raw`C:\Users\godfr\OneDrive - JUNIA Grande école d'ingénieurs\Desktop\book\Book_Management\m1-site\node_modules\react-toastify\dist\index.mjs#Bounce`);
+const e0 = (0,next_dist_build_webpack_loaders_next_flight_loader_module_proxy__WEBPACK_IMPORTED_MODULE_0__.createProxy)(String.raw`C:\Users\OTHNIEL\Documents\FinalWebDev\Book_Management\m1-site\node_modules\react-toastify\dist\index.mjs#Bounce`);
 
-const e1 = (0,next_dist_build_webpack_loaders_next_flight_loader_module_proxy__WEBPACK_IMPORTED_MODULE_0__.createProxy)(String.raw`C:\Users\godfr\OneDrive - JUNIA Grande école d'ingénieurs\Desktop\book\Book_Management\m1-site\node_modules\react-toastify\dist\index.mjs#Flip`);
+const e1 = (0,next_dist_build_webpack_loaders_next_flight_loader_module_proxy__WEBPACK_IMPORTED_MODULE_0__.createProxy)(String.raw`C:\Users\OTHNIEL\Documents\FinalWebDev\Book_Management\m1-site\node_modules\react-toastify\dist\index.mjs#Flip`);
 
-const e2 = (0,next_dist_build_webpack_loaders_next_flight_loader_module_proxy__WEBPACK_IMPORTED_MODULE_0__.createProxy)(String.raw`C:\Users\godfr\OneDrive - JUNIA Grande école d'ingénieurs\Desktop\book\Book_Management\m1-site\node_modules\react-toastify\dist\index.mjs#Icons`);
+const e2 = (0,next_dist_build_webpack_loaders_next_flight_loader_module_proxy__WEBPACK_IMPORTED_MODULE_0__.createProxy)(String.raw`C:\Users\OTHNIEL\Documents\FinalWebDev\Book_Management\m1-site\node_modules\react-toastify\dist\index.mjs#Icons`);
 
-const e3 = (0,next_dist_build_webpack_loaders_next_flight_loader_module_proxy__WEBPACK_IMPORTED_MODULE_0__.createProxy)(String.raw`C:\Users\godfr\OneDrive - JUNIA Grande école d'ingénieurs\Desktop\book\Book_Management\m1-site\node_modules\react-toastify\dist\index.mjs#Slide`);
+const e3 = (0,next_dist_build_webpack_loaders_next_flight_loader_module_proxy__WEBPACK_IMPORTED_MODULE_0__.createProxy)(String.raw`C:\Users\OTHNIEL\Documents\FinalWebDev\Book_Management\m1-site\node_modules\react-toastify\dist\index.mjs#Slide`);
 
-const e4 = (0,next_dist_build_webpack_loaders_next_flight_loader_module_proxy__WEBPACK_IMPORTED_MODULE_0__.createProxy)(String.raw`C:\Users\godfr\OneDrive - JUNIA Grande école d'ingénieurs\Desktop\book\Book_Management\m1-site\node_modules\react-toastify\dist\index.mjs#ToastContainer`);
+const e4 = (0,next_dist_build_webpack_loaders_next_flight_loader_module_proxy__WEBPACK_IMPORTED_MODULE_0__.createProxy)(String.raw`C:\Users\OTHNIEL\Documents\FinalWebDev\Book_Management\m1-site\node_modules\react-toastify\dist\index.mjs#ToastContainer`);
 
-const e5 = (0,next_dist_build_webpack_loaders_next_flight_loader_module_proxy__WEBPACK_IMPORTED_MODULE_0__.createProxy)(String.raw`C:\Users\godfr\OneDrive - JUNIA Grande école d'ingénieurs\Desktop\book\Book_Management\m1-site\node_modules\react-toastify\dist\index.mjs#Zoom`);
+const e5 = (0,next_dist_build_webpack_loaders_next_flight_loader_module_proxy__WEBPACK_IMPORTED_MODULE_0__.createProxy)(String.raw`C:\Users\OTHNIEL\Documents\FinalWebDev\Book_Management\m1-site\node_modules\react-toastify\dist\index.mjs#Zoom`);
 
-const e6 = (0,next_dist_build_webpack_loaders_next_flight_loader_module_proxy__WEBPACK_IMPORTED_MODULE_0__.createProxy)(String.raw`C:\Users\godfr\OneDrive - JUNIA Grande école d'ingénieurs\Desktop\book\Book_Management\m1-site\node_modules\react-toastify\dist\index.mjs#collapseToast`);
+const e6 = (0,next_dist_build_webpack_loaders_next_flight_loader_module_proxy__WEBPACK_IMPORTED_MODULE_0__.createProxy)(String.raw`C:\Users\OTHNIEL\Documents\FinalWebDev\Book_Management\m1-site\node_modules\react-toastify\dist\index.mjs#collapseToast`);
 
-const e7 = (0,next_dist_build_webpack_loaders_next_flight_loader_module_proxy__WEBPACK_IMPORTED_MODULE_0__.createProxy)(String.raw`C:\Users\godfr\OneDrive - JUNIA Grande école d'ingénieurs\Desktop\book\Book_Management\m1-site\node_modules\react-toastify\dist\index.mjs#cssTransition`);
+const e7 = (0,next_dist_build_webpack_loaders_next_flight_loader_module_proxy__WEBPACK_IMPORTED_MODULE_0__.createProxy)(String.raw`C:\Users\OTHNIEL\Documents\FinalWebDev\Book_Management\m1-site\node_modules\react-toastify\dist\index.mjs#cssTransition`);
 
-const e8 = (0,next_dist_build_webpack_loaders_next_flight_loader_module_proxy__WEBPACK_IMPORTED_MODULE_0__.createProxy)(String.raw`C:\Users\godfr\OneDrive - JUNIA Grande école d'ingénieurs\Desktop\book\Book_Management\m1-site\node_modules\react-toastify\dist\index.mjs#toast`);
+const e8 = (0,next_dist_build_webpack_loaders_next_flight_loader_module_proxy__WEBPACK_IMPORTED_MODULE_0__.createProxy)(String.raw`C:\Users\OTHNIEL\Documents\FinalWebDev\Book_Management\m1-site\node_modules\react-toastify\dist\index.mjs#toast`);
 
 
 /***/ })
