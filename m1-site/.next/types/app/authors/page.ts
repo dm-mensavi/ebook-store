@@ -1,4 +1,4 @@
-// File: C:\Users\godfr\OneDrive - JUNIA Grande école d'ingénieurs\Desktop\book\Book_Management\m1-site\src\app\authors\page.tsx
+// File: C:\Users\OTHNIEL\Documents\FinalWebDev\Book_Management\m1-site\src\app\authors\page.tsx
 import * as entry from '../../../../src/app/authors/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
