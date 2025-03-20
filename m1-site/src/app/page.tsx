@@ -13,7 +13,7 @@ export default function Home() {
   };
 
   return (
-    <GlobalLayout>
+    
       <div className="space-y-8">
         <h1 className="text-4xl font-bold text-blue-600">
           Hello World with Custom Components!
@@ -36,7 +36,7 @@ export default function Home() {
           <p>This is your custom modal! Confirm or cancel the action.</p>
         </Modal> */}
       </div>
-    </GlobalLayout>
+  
   );
 }
 
