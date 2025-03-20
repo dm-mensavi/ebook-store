@@ -29,3 +29,8 @@ export const addAuthor = async (authorData: {
     throw error;
   }
 };
+
+export const getAuthorById = async (id: string): Promise<Author> => {
+  const response = await axios.get(`${API_URL}/${id}`);
+  return response.data;
+};

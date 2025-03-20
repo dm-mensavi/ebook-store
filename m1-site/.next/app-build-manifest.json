@@ -26,6 +26,12 @@
       "static/chunks/main-app.js",
       "static/css/app/books/page.css",
       "static/chunks/app/books/page.js"
+    ],
+    "/authors/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/authors/page.css",
+      "static/chunks/app/authors/page.js"
     ]
   }
 }

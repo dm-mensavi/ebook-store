@@ -65,3 +65,10 @@ export const updateBook = async (
     throw error;
   }
 };
+
+//get the books by author id
+
+export const getBooksByAuthorId = async (authorId: string): Promise<Book[]> => {
+  const response = await axios.get(`${API_URL}?authorId=${authorId}`);
+  return response.data;
+};
