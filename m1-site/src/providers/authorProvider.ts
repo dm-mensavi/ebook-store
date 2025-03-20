@@ -34,3 +34,38 @@ export const getAuthorById = async (id: string): Promise<Author> => {
   const response = await axios.get(`${API_URL}/${id}`);
   return response.data;
 };
+
+// ✅ Update an author
+export const updateAuthor = async (
+  id: string,
+  updatedData: {
+    name?: string;
+    biography?: string;
+    photo?: string;
+  }
+): Promise<Author> => {
+  const cleanPayload: Record<string, any> = {};
+
+  if (updatedData.name !== undefined) cleanPayload.name = updatedData.name;
+  if (updatedData.biography !== undefined)
+    cleanPayload.biography = updatedData.biography;
+  if (updatedData.photo !== undefined) cleanPayload.photo = updatedData.photo;
+
+  try {
+    const response = await axios.patch(`${API_URL}/${id}`, cleanPayload);
+    return response.data;
+  } catch (error: any) {
+    console.error("Error updating author:", error?.response?.data || error);
+    throw error;
+  }
+};
+
+// ✅ Delete an author
+export const deleteAuthor = async (id: string): Promise<void> => {
+  try {
+    await axios.delete(`${API_URL}/${id}`);
+  } catch (error) {
+    console.error("Error deleting author:", error);
+    throw error;
+  }
+};

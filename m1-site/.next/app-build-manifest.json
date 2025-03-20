@@ -3,8 +3,8 @@
     "/authors/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/authors/page.js",
-      "static/css/app/authors/page.css"
+      "static/css/app/authors/page.css",
+      "static/chunks/app/authors/page.js"
     ],
     "/layout": [
       "static/chunks/webpack.js",

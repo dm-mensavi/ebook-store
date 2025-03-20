@@ -66,6 +66,17 @@ const AuthorCard: React.FC<AuthorCardProps> = ({ author }) => {
           <h2 className="text-lg font-semibold text-center">{author.name}</h2>
         </div>
 
+        {/* Author Stats */}
+        <div className="mt-4 text-center">
+          <p className="text-sm text-gray-800">
+            Books Written:{" "}
+            <span className="font-medium">{author.bookCount}</span>
+          </p>
+          <p className="text-sm text-yellow-600 font-medium">
+            Average Rating: {author.averageRating} ⭐
+          </p>
+        </div>
+
         {/* Author Biography */}
         {author.biography && (
           <p className="text-sm text-gray-600 text-center mt-2 line-clamp-3">

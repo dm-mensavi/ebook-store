@@ -206,28 +206,43 @@
 
 // export default AuthorList;
 
-"use client";
-
 import React from "react";
-import { Author } from "../../models/Author"; // Adjust the path if different
+import { Author } from "../../models/Author";
 import AuthorCard from "./AuthorCard";
 
 type AuthorListProps = {
   authors: Author[];
+  onEdit: (author: Author) => void;
+  onDelete: (author: Author) => void;
 };
 
-const AuthorList: React.FC<AuthorListProps> = ({ authors }) => {
+const AuthorList: React.FC<AuthorListProps> = ({
+  authors,
+  onEdit,
+  onDelete,
+}) => {
   return (
-    <div className="p-6">
-      {authors.length === 0 ? (
-        <div className="text-center text-gray-500">No authors found.</div>
-      ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {authors.map((author) => (
-            <AuthorCard key={author.id} author={author} />
-          ))}
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      {authors.map((author) => (
+        <div key={author.id} className="relative">
+          <AuthorCard author={author} />
+
+          {/* <div className="flex justify-end gap-2 mt-2">
+            <button
+              onClick={() => onEdit(author)}
+              className="text-blue-600 hover:text-blue-800 text-sm"
+            >
+              Edit
+            </button>
+            <button
+              onClick={() => onDelete(author)}
+              className="text-red-600 hover:text-red-800 text-sm"
+            >
+              Delete
+            </button>
+          </div> */}
         </div>
-      )}
+      ))}
     </div>
   );
 };
