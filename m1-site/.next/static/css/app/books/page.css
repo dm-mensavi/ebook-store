@@ -571,6 +571,9 @@ video {
 .mt-6 {
   margin-top: 1.5rem;
 }
+.mb-10 {
+  margin-bottom: 2.5rem;
+}
 .line-clamp-3 {
   overflow: hidden;
   display: -webkit-box;
@@ -684,8 +687,14 @@ video {
 .flex-col {
   flex-direction: column;
 }
+.flex-wrap {
+  flex-wrap: wrap;
+}
 .items-center {
   align-items: center;
+}
+.justify-start {
+  justify-content: flex-start;
 }
 .justify-end {
   justify-content: flex-end;

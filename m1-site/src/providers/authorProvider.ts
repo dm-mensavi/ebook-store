@@ -30,9 +30,14 @@ export const addAuthor = async (authorData: {
   }
 };
 
-export const getAuthorById = async (id: string): Promise<Author> => {
-  const response = await axios.get(`${API_URL}/${id}`);
-  return response.data;
+export const getAuthorById = async (id: string) => {
+  try {
+    const response = await axios.get(`${API_URL}/${id}?includeBooks=true`);
+    return response.data;
+  } catch (error: any) {
+    console.error("API error fetching author:", error.response?.data || error);
+    throw error;
+  }
 };
 
 // ✅ Update an author
