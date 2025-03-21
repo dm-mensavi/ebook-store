@@ -17,4 +17,5 @@ export class Author {
 
   @OneToMany(() => Book, (book) => book.author, { cascade: true })
   books: Book[];
+  averageRating?: number;
 }

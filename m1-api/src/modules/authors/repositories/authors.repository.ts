@@ -19,6 +19,7 @@ export class AuthorsRepository extends Repository<Author> {
       .select('author.id', 'id')
       .addSelect('author.name', 'name')
       .addSelect('author.photo', 'photo')
+      .addSelect('author.biography', 'biography')
       .addSelect('COUNT(DISTINCT book.id)', 'bookCount')
       .addSelect('AVG(rating.stars)', 'averageRating')
       .groupBy('author.id');
@@ -47,6 +48,7 @@ export class AuthorsRepository extends Repository<Author> {
       .select('author.id', 'id')
       .addSelect('author.name', 'name')
       .addSelect('author.photo', 'photo')
+      .addSelect('author.biography', 'biography')
       .addSelect('COUNT(DISTINCT book.id)', 'bookCount')
       .addSelect('AVG(rating.stars)', 'averageRating')
       .groupBy('author.id')

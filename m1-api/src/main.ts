@@ -30,6 +30,6 @@ async function bootstrap() {
 
   await app.listen(3001);
 
-  console.log(`🚀 API listening on PORT ${process.env.PORT}`);
+  console.log(`🚀 API listening on PORT 3001`);
 }
 bootstrap();
