@@ -7,13 +7,24 @@ import {
   Param,
   Delete,
   Query,
+  HttpCode,
+  HttpStatus,
+  ParseBoolPipe,
 } from '@nestjs/common';
 import { AuthorsService } from '../services/author.service';
 import { CreateAuthorDto } from '../dto/create-author.dto';
 import { UpdateAuthorDto } from '../dto/update-author.dto';
 import { FilterAuthorDto } from '../dto/filter-authors.dto';
-import { ApiTags, ApiOperation, ApiResponse, ApiParam } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiParam,
+  ApiQuery,
+} from '@nestjs/swagger';
 import { AuthorResponseDto } from '../dto/author-response.dto';
+import { AuthorPresenter } from '../presenters/authors.presenters';
+import { AddBookToAuthorResponseDto } from '../dto/add-books-author-response.dto';
 
 @ApiTags('Authors')
 @Controller('authors')
@@ -27,8 +38,11 @@ export class AuthorsController {
     description: 'Author created successfully.',
     type: AuthorResponseDto,
   })
-  create(@Body() createAuthorDto: CreateAuthorDto) {
-    return this.authorsService.createAuthor(createAuthorDto);
+  async create(
+    @Body() createAuthorDto: CreateAuthorDto,
+  ): Promise<AuthorResponseDto> {
+    const author = await this.authorsService.createAuthor(createAuthorDto);
+    return AuthorPresenter.toResponse(author);
   }
 
   @Get()
@@ -38,25 +52,76 @@ export class AuthorsController {
     description: 'List of authors.',
     type: [AuthorResponseDto],
   })
-  findAll(@Query() filterAuthorDto: FilterAuthorDto) {
+  async findAll(
+    @Query() filterAuthorDto: FilterAuthorDto,
+  ): Promise<AuthorResponseDto[]> {
     const { search, sortBy, sortOrder } = filterAuthorDto;
-    return this.authorsService.findAllAuthorsWithStatsAndFilters(
+    const authors = await this.authorsService.findAllAuthorsWithStatsAndFilters(
       search,
       sortBy,
       sortOrder,
     );
+    return AuthorPresenter.toResponseArray(authors);
   }
 
   @Get(':id')
-  @ApiOperation({ summary: 'Get a specific author by ID' })
+  @ApiOperation({ summary: 'Get a specific author by ID, with optional books' })
   @ApiParam({ name: 'id', description: 'UUID of the author' })
+  @ApiQuery({
+    name: 'includeBooks',
+    required: false,
+    type: Boolean,
+    description: 'Whether to include the list of books written by the author',
+  })
   @ApiResponse({
     status: 200,
-    description: 'Author retrieved.',
+    description: 'Author retrieved successfully.',
     type: AuthorResponseDto,
   })
-  findOne(@Param('id') id: string) {
-    return this.authorsService.findAuthorByIdWithStats(id);
+  async findOne(
+    @Param('id') id: string,
+    @Query('includeBooks', ParseBoolPipe) includeBooks = false,
+  ): Promise<AuthorResponseDto> {
+    if (includeBooks) {
+      const author = await this.authorsService.findByIdWithBooks(id);
+      return AuthorPresenter.toDetailedResponse(author);
+    }
+
+    const author = await this.authorsService.findAuthorByIdWithStats(id);
+    return AuthorPresenter.toResponse(author);
+  }
+
+  @Post(':id/books/:bookId')
+  @ApiOperation({ summary: 'Add a book to an author' })
+  @ApiParam({ name: 'id', description: 'The ID of the author' })
+  @ApiParam({ name: 'bookId', description: 'The ID of the book to add' })
+  @ApiResponse({
+    status: 201,
+    description: 'Book added to author successfully',
+    type: AddBookToAuthorResponseDto,
+  })
+  async addBook(
+    @Param('id') authorId: string,
+    @Param('bookId') bookId: string,
+  ): Promise<AddBookToAuthorResponseDto> {
+    const author = await this.authorsService.addBookToAuthor(authorId, bookId);
+    return new AddBookToAuthorResponseDto(author);
+  }
+
+  @Delete(':id/books/:bookId')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiOperation({ summary: 'Remove a book from an author' })
+  @ApiParam({ name: 'id', description: 'The ID of the author' })
+  @ApiParam({ name: 'bookId', description: 'The ID of the book to remove' })
+  @ApiResponse({
+    status: 204,
+    description: 'Book removed from author successfully',
+  })
+  async removeBook(
+    @Param('id') authorId: string,
+    @Param('bookId') bookId: string,
+  ): Promise<void> {
+    await this.authorsService.removeBookFromAuthor(authorId, bookId);
   }
 
   @Patch(':id')
@@ -67,15 +132,19 @@ export class AuthorsController {
     description: 'Author updated successfully.',
     type: AuthorResponseDto,
   })
-  update(@Param('id') id: string, @Body() updateAuthorDto: UpdateAuthorDto) {
-    return this.authorsService.updateAuthor(id, updateAuthorDto);
+  async update(
+    @Param('id') id: string,
+    @Body() updateAuthorDto: UpdateAuthorDto,
+  ): Promise<AuthorResponseDto> {
+    const author = await this.authorsService.updateAuthor(id, updateAuthorDto);
+    return AuthorPresenter.toResponse(author);
   }
 
   @Delete(':id')
   @ApiOperation({ summary: 'Delete an author by ID' })
   @ApiParam({ name: 'id', description: 'UUID of the author to delete' })
   @ApiResponse({ status: 200, description: 'Author deleted successfully.' })
-  remove(@Param('id') id: string) {
-    return this.authorsService.deleteAuthor(id);
+  async remove(@Param('id') id: string): Promise<void> {
+    await this.authorsService.deleteAuthor(id);
   }
 }

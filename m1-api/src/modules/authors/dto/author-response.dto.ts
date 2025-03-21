@@ -1,4 +1,22 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { Book } from '../../books/models/book.entity';
+
+class BookItemDto {
+  @ApiProperty()
+  id: string;
+
+  @ApiProperty()
+  title: string;
+
+  @ApiProperty()
+  link: string;
+
+  constructor(book: Book) {
+    this.id = book.id;
+    this.title = book.title;
+    this.link = `/books/${book.id}`;
+  }
+}
 
 export class AuthorResponseDto {
   @ApiProperty({
@@ -38,4 +56,24 @@ export class AuthorResponseDto {
     description: 'Average rating of all books by the author',
   })
   averageRating: number | null;
+
+  @ApiPropertyOptional({ type: [BookItemDto] })
+  books?: BookItemDto[];
+
+  constructor(author: any) {
+    this.id = author.id;
+    this.name = author.name;
+    this.photo = author.photo;
+    this.biography = author.biography || null;
+
+    this.bookCount = author.bookCount ?? author.books?.length ?? 0;
+    this.averageRating = author.averageRating ?? null;
+
+    this.books =
+      author.books?.map((book) => ({
+        id: book.id,
+        title: book.title,
+        link: `/books/${book.id}`,
+      })) ?? [];
+  }
 }
