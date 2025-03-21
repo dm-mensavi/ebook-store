@@ -1,276 +1,417 @@
-// import { Test, TestingModule } from '@nestjs/testing';
-// import { AuthorsService } from './author.service';
-// import { AuthorsRepository } from '../repositories/authors.repository';
-// import { BooksRepository } from '../../books/repositories/book.repository';
-// import { CreateAuthorDto } from '../dto/create-author.dto';
-// import { UpdateAuthorDto } from '../dto/update-author.dto';
-// import { CreateBookDto } from '../dto/create-book.dto';
-// import { NotFoundException } from '@nestjs/common';
+import { Test, TestingModule } from '@nestjs/testing';
+import { AuthorsService } from './author.service';
+import { AuthorsRepository } from '../repositories/authors.repository';
+import { BooksRepository } from '../../books/repositories/book.repository';
+import { NotFoundException } from '@nestjs/common';
+import { CreateAuthorDto } from '../dto/create-author.dto';
+import { UpdateAuthorDto } from '../dto/update-author.dto';
+import { CreateAuthorBookDto } from '../dto/create-book.dto';
 
-// // Mock factory functions
-// let authorsRepository: jest.Mocked<Partial<AuthorsRepository>>;
-// let booksRepository: jest.Mocked<Partial<BooksRepository>>;
+// Interfaces
+interface MockAuthor {
+  id: string;
+  name: string;
+  photo: string;
+  biography: string;
+  books: MockBook[];
+  averageRating?: number;
+}
 
-// const mockAuthorsRepository = (): jest.Mocked<Partial<AuthorsRepository>> => ({
-//   create: jest.fn(),
-//   save: jest.fn(),
-//   findAuthorsWithStats: jest.fn(),
-//   findAuthorsWithStatsAndFilters: jest.fn(),
-//   findAuthorByIdWithStats: jest.fn(),
-//   findOne: jest.fn(),
-//   findOneBy: jest.fn(),
-//   delete: jest.fn(),
-//   clear: jest.fn(),
-// });
+interface MockBook {
+  id: string;
+  title: string;
+  publishedYear: number;
+  price: number;
+  author: MockAuthor;
+  ratings: { stars: number }[];
+  averageRating?: number;
+}
 
-// const mockBooksRepository = (): jest.Mocked<Partial<BooksRepository>> => ({
-//   create: jest.fn(),
-//   save: jest.fn(),
-//   findOne: jest.fn(),
-// });
+interface MockAuthorsRepository {
+  create: jest.Mock;
+  save: jest.Mock;
+  findAuthorsWithStats: jest.Mock;
+  findAuthorsWithStatsAndFilters: jest.Mock;
+  findAuthorByIdWithStats: jest.Mock;
+  findOne: jest.Mock;
+  findOneBy: jest.Mock;
+  delete: jest.Mock;
+  clear: jest.Mock;
+}
 
-// beforeEach(async () => {
-//   const module: TestingModule = await Test.createTestingModule({
-//     providers: [
-//       AuthorsService,
-//       { provide: AuthorsRepository, useFactory: mockAuthorsRepository },
-//       { provide: BooksRepository, useFactory: mockBooksRepository },
-//     ],
-//   }).compile();
+interface MockBooksRepository {
+  create: jest.Mock;
+  save: jest.Mock;
+  findOne: jest.Mock;
+}
 
-//   const service = module.get<AuthorsService>(AuthorsService);
+// Factory functions
+const createMockAuthor = (overrides: Partial<MockAuthor> = {}): MockAuthor => ({
+  id: 'author-id',
+  name: 'Default Author',
+  photo: 'photo.jpg',
+  biography: 'An author bio',
+  books: [],
+  ...overrides,
+});
 
-//   authorsRepository = module.get(AuthorsRepository) as jest.Mocked<Partial<AuthorsRepository>>;
-//   booksRepository = module.get(BooksRepository) as jest.Mocked<Partial<BooksRepository>>;
-// });
+const createMockBook = (overrides: Partial<MockBook> = {}): MockBook => ({
+  id: 'book-id',
+  title: 'Default Book',
+  publishedYear: 2023,
+  price: 19.99,
+  author: createMockAuthor(),
+  ratings: [],
+  ...overrides,
+});
 
-//   describe('createAuthor', () => {
-//     it('should create and return a new author', async () => {
-//       const dto: CreateAuthorDto = {
-//         name: 'J.K. Rowling',
-//         photo: 'url',
-//         biography: 'bio',
-//       };
-//       const savedAuthor = { id: 'uuid', ...dto };
+describe('AuthorsService', () => {
+  let service: AuthorsService;
+  let authorsRepository: MockAuthorsRepository;
+  let booksRepository: MockBooksRepository;
 
-//       authorsRepository.create.mockReturnValue(dto);
-//       authorsRepository.save.mockResolvedValue(savedAuthor);
+  beforeEach(async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      providers: [
+        AuthorsService,
+        {
+          provide: AuthorsRepository,
+          useValue: {
+            create: jest.fn(),
+            save: jest.fn(),
+            findAuthorsWithStats: jest.fn(),
+            findAuthorsWithStatsAndFilters: jest.fn(),
+            findAuthorByIdWithStats: jest.fn(),
+            findOne: jest.fn(),
+            findOneBy: jest.fn(),
+            delete: jest.fn(),
+            clear: jest.fn(),
+          } as MockAuthorsRepository,
+        },
+        {
+          provide: BooksRepository,
+          useValue: {
+            create: jest.fn(),
+            save: jest.fn(),
+            findOne: jest.fn(),
+          } as MockBooksRepository,
+        },
+      ],
+    }).compile();
 
-//       const result = await service.createAuthor(dto);
+    service = module.get<AuthorsService>(AuthorsService);
+    authorsRepository = module.get(AuthorsRepository) as MockAuthorsRepository;
+    booksRepository = module.get(BooksRepository) as MockBooksRepository;
+  });
 
-//       expect(result).toEqual(savedAuthor);
-//       expect(authorsRepository.create).toHaveBeenCalledWith(dto);
-//       expect(authorsRepository.save).toHaveBeenCalledWith(dto);
-//     });
-//   });
+  describe('createAuthor', () => {
+    it('should create and return a new author', async () => {
+      const dto: CreateAuthorDto = {
+        name: 'J.K. Rowling',
+        photo: 'photo.jpg',
+        biography: 'Bio',
+      };
+      const mockAuthor = createMockAuthor(dto);
+      authorsRepository.create.mockReturnValue(mockAuthor);
+      authorsRepository.save.mockResolvedValue(mockAuthor);
 
-//   describe('findAllAuthorsWithStatsAndFilters', () => {
-//     it('should return an array of authors with filters', async () => {
-//       const authors = [{ id: '1', name: 'Author' }];
-//       authorsRepository.findAuthorsWithStatsAndFilters.mockResolvedValue(
-//         authors,
-//       );
+      const result = await service.createAuthor(dto);
 
-//       const result = await service.findAllAuthorsWithStatsAndFilters(
-//         'Author',
-//         'name',
-//         'ASC',
-//       );
+      expect(result).toEqual(mockAuthor);
+      expect(authorsRepository.create).toHaveBeenCalledWith(dto);
+      expect(authorsRepository.save).toHaveBeenCalledWith(mockAuthor);
+    });
 
-//       expect(result).toEqual(authors);
-//       expect(
-//         authorsRepository.findAuthorsWithStatsAndFilters,
-//       ).toHaveBeenCalledWith('Author', 'name', 'ASC');
-//     });
-//   });
+    it('should handle partial DTO with defaults', async () => {
+      const dto: CreateAuthorDto = {
+        name: 'J.K. Rowling',
+        photo: '',
+      };
+      const mockAuthor = createMockAuthor(dto);
+      authorsRepository.create.mockReturnValue(mockAuthor);
+      authorsRepository.save.mockResolvedValue(mockAuthor);
 
-//   describe('findAuthorByIdWithStats', () => {
-//     it('should return an author by ID with stats', async () => {
-//       const author = { id: '1', name: 'Author' };
-//       authorsRepository.findAuthorByIdWithStats.mockResolvedValue(author);
+      const result = await service.createAuthor(dto);
 
-//       const result = await service.findAuthorByIdWithStats('1');
+      expect(result).toHaveProperty('photo');
+      expect(result).toHaveProperty('biography');
+    });
+  });
 
-//       expect(result).toEqual(author);
-//       expect(authorsRepository.findAuthorByIdWithStats).toHaveBeenCalledWith(
-//         '1',
-//       );
-//     });
+  describe('findAllAuthorsWithStatsAndFilters', () => {
+    it('should return all authors with stats', async () => {
+      const authors = [createMockAuthor()];
+      authorsRepository.findAuthorsWithStatsAndFilters.mockResolvedValue(
+        authors,
+      );
 
-//     it('should throw NotFoundException if author not found', async () => {
-//       authorsRepository.findAuthorByIdWithStats.mockResolvedValue(null);
+      const result = await service.findAllAuthorsWithStatsAndFilters(
+        'search',
+        'name',
+        'ASC',
+      );
 
-//       await expect(service.findAuthorByIdWithStats('1')).rejects.toThrow(
-//         NotFoundException,
-//       );
-//     });
-//   });
+      expect(result).toEqual(authors);
+      expect(
+        authorsRepository.findAuthorsWithStatsAndFilters,
+      ).toHaveBeenCalledWith('search', 'name', 'ASC');
+    });
 
-//   describe('findByIdWithBooks', () => {
-//     it('should return an author with books and average rating', async () => {
-//       const author = {
-//         id: '1',
-//         name: 'Author',
-//         books: [
-//           {
-//             id: 'b1',
-//             title: 'Book 1',
-//             ratings: [{ stars: 5 }, { stars: 3 }],
-//           },
-//         ],
-//       };
+    it('should handle empty results', async () => {
+      authorsRepository.findAuthorsWithStatsAndFilters.mockResolvedValue([]);
 
-//       authorsRepository.findOne.mockResolvedValue(author);
+      const result = await service.findAllAuthorsWithStatsAndFilters(
+        '',
+        'name',
+        'ASC',
+      );
 
-//       const result = await service.findByIdWithBooks('1');
+      expect(result).toEqual([]);
+    });
 
-//       expect(result).toHaveProperty('averageRating');
-//       expect(authorsRepository.findOne).toHaveBeenCalledWith({
-//         where: { id: '1' },
-//         relations: ['books', 'books.ratings'],
-//       });
-//     });
+    it('should work without filters', async () => {
+      const authors = [createMockAuthor()];
+      // Change this to match what the service actually calls when no parameters are provided
+      authorsRepository.findAuthorsWithStatsAndFilters.mockResolvedValue(
+        authors,
+      );
 
-//     it('should throw NotFoundException if author not found', async () => {
-//       authorsRepository.findOne.mockResolvedValue(null);
+      const result = await service.findAllAuthorsWithStatsAndFilters();
 
-//       await expect(service.findByIdWithBooks('1')).rejects.toThrow(
-//         NotFoundException,
-//       );
-//     });
-//   });
+      expect(result).toEqual(authors);
+      expect(
+        authorsRepository.findAuthorsWithStatsAndFilters,
+      ).toHaveBeenCalledWith(
+        undefined, // search
+        undefined, // sortBy
+        undefined, // sortDirection
+      );
+    });
+  });
 
-//   describe('createBookForAuthor', () => {
-//     it('should create a new book for an existing author', async () => {
-//       const author = { id: '1', name: 'Author', books: [] };
-//       const createBookDto: CreateBookDto = {
-//         title: 'New Book',
-//         publishedYear: 2024,
-//         price: 19.99,
-//       };
+  describe('findAuthorByIdWithStats', () => {
+    it('should return author by id with stats', async () => {
+      const mockAuthor = createMockAuthor();
+      authorsRepository.findAuthorByIdWithStats.mockResolvedValue(mockAuthor);
 
-//       authorsRepository.findOne.mockResolvedValue(author);
-//       booksRepository.create.mockReturnValue({ ...createBookDto, author });
-//       booksRepository.save.mockResolvedValue({ ...createBookDto, author });
+      const result = await service.findAuthorByIdWithStats('author-id');
 
-//       authorsRepository.findOne
-//         .mockResolvedValueOnce(author)
-//         .mockResolvedValueOnce({
-//           ...author,
-//           books: [{ id: 'book1', ...createBookDto }],
-//         });
+      expect(result).toEqual(mockAuthor);
+      expect(authorsRepository.findAuthorByIdWithStats).toHaveBeenCalledWith(
+        'author-id',
+      );
+    });
 
-//       const result = await service.createBookForAuthor('1', createBookDto);
+    it('should throw NotFoundException if author not found', async () => {
+      authorsRepository.findAuthorByIdWithStats.mockResolvedValue(null);
 
-//       expect(booksRepository.create).toHaveBeenCalledWith({
-//         ...createBookDto,
-//         author,
-//       });
-//       expect(booksRepository.save).toHaveBeenCalled();
-//       expect(result.books).toContainEqual(
-//         expect.objectContaining({ title: 'New Book' }),
-//       );
-//     });
+      await expect(
+        service.findAuthorByIdWithStats('author-id'),
+      ).rejects.toThrow(NotFoundException);
+    });
 
-//     it('should throw NotFoundException if author not found', async () => {
-//       authorsRepository.findOne.mockResolvedValue(null);
+    it('should handle invalid id format', async () => {
+      authorsRepository.findAuthorByIdWithStats.mockResolvedValue(null);
 
-//       await expect(
-//         service.createBookForAuthor('1', {
-//           title: 'Book',
-//           publishedYear: 2024,
-//           price: 19.99,
-//         }),
-//       ).rejects.toThrow(NotFoundException);
-//     });
-//   });
+      await expect(service.findAuthorByIdWithStats('')).rejects.toThrow(
+        NotFoundException,
+      );
+    });
+  });
 
-//   describe('removeBookFromAuthor', () => {
-//     it('should remove the author from the book and return updated author', async () => {
-//       const author = { id: '1', name: 'Author' };
-//       const book = { id: '10', title: 'Book', author: { id: '1' } };
+  describe('findByIdWithBooks', () => {
+    it('should return author with books and calculated ratings', async () => {
+      const mockBook = createMockBook({
+        ratings: [{ stars: 5 }, { stars: 3 }],
+      });
+      const mockAuthor = createMockAuthor({ books: [mockBook] });
+      authorsRepository.findOne.mockResolvedValue(mockAuthor);
 
-//       booksRepository.findOne.mockResolvedValue(book);
-//       booksRepository.save.mockResolvedValue({ ...book, author: null });
-//       authorsRepository.findOne.mockResolvedValue({
-//         ...author,
-//         books: [],
-//       });
+      const result = await service.findByIdWithBooks('author-id');
 
-//       const result = await service.removeBookFromAuthor('1', '10');
+      expect(result.books[0]).toHaveProperty('averageRating', 4);
+      expect(result).toHaveProperty('averageRating');
+    });
 
-//       expect(booksRepository.findOne).toHaveBeenCalledWith({
-//         where: { id: '10', author: { id: '1' } },
-//       });
-//       expect(booksRepository.save).toHaveBeenCalledWith({
-//         ...book,
-//         author: null,
-//       });
-//       expect(result.books).toEqual([]);
-//     });
+    it('should throw NotFoundException if author not found', async () => {
+      authorsRepository.findOne.mockResolvedValue(null);
 
-//     it('should throw NotFoundException if book not found for author', async () => {
-//       booksRepository.findOne.mockResolvedValue(null);
+      await expect(service.findByIdWithBooks('author-id')).rejects.toThrow(
+        NotFoundException,
+      );
+    });
 
-//       await expect(service.removeBookFromAuthor('1', '10')).rejects.toThrow(
-//         NotFoundException,
-//       );
-//     });
-//   });
+    it('should handle author with no books', async () => {
+      const mockAuthor = createMockAuthor({ books: [] });
+      authorsRepository.findOne.mockResolvedValue(mockAuthor);
 
-//   describe('updateAuthor', () => {
-//     it('should update and return the author', async () => {
-//       const author = { id: '1', name: 'Old Name' };
-//       const updateDto: UpdateAuthorDto = { name: 'New Name' };
+      const result = await service.findByIdWithBooks('author-id');
 
-//       authorsRepository.findOneBy.mockResolvedValue(author);
-//       authorsRepository.save.mockResolvedValue({
-//         ...author,
-//         ...updateDto,
-//       });
+      expect(result.books).toHaveLength(0);
+      expect(result.averageRating).toBe(null);
+    });
+  });
 
-//       const result = await service.updateAuthor('1', updateDto);
+  describe('createBookForAuthor', () => {
+    it('should create and return author with new book', async () => {
+      const author = createMockAuthor();
+      const bookDto: CreateAuthorBookDto = {
+        title: 'Harry Potter',
+        publishedYear: 1997,
+        price: 19.99,
+      };
+      const book = createMockBook({ ...bookDto });
 
-//       expect(result.name).toEqual('New Name');
-//       expect(authorsRepository.findOneBy).toHaveBeenCalledWith({ id: '1' });
-//       expect(authorsRepository.save).toHaveBeenCalledWith({
-//         ...author,
-//         ...updateDto,
-//       });
-//     });
+      authorsRepository.findOne.mockResolvedValueOnce(author);
+      authorsRepository.findOne.mockResolvedValueOnce({
+        ...author,
+        books: [book],
+      });
+      booksRepository.create.mockReturnValue(book);
+      booksRepository.save.mockResolvedValue(book);
 
-//     it('should throw NotFoundException if author not found', async () => {
-//       authorsRepository.findOneBy.mockResolvedValue(null);
+      const result = await service.createBookForAuthor(author.id, bookDto);
 
-//       await expect(
-//         service.updateAuthor('1', { name: 'New Name' }),
-//       ).rejects.toThrow(NotFoundException);
-//     });
-//   });
+      expect(booksRepository.create).toHaveBeenCalledWith({
+        ...bookDto,
+        author,
+      });
+      expect(result.books).toHaveLength(1);
+    });
 
-//   describe('deleteAuthor', () => {
-//     it('should delete the author', async () => {
-//       authorsRepository.delete.mockResolvedValue({ affected: 1 });
+    it('should throw NotFoundException if author not found', async () => {
+      authorsRepository.findOne.mockResolvedValue(null);
+      const bookDto: CreateAuthorBookDto = {
+        title: 'Book',
+        publishedYear: 2022,
+        price: 29.99,
+      };
 
-//       await service.deleteAuthor('1');
+      await expect(
+        service.createBookForAuthor('invalid-id', bookDto),
+      ).rejects.toThrow(NotFoundException);
+    });
 
-//       expect(authorsRepository.delete).toHaveBeenCalledWith('1');
-//     });
+    it('should add book to existing books', async () => {
+      const existingBook = createMockBook();
+      const author = createMockAuthor({ books: [existingBook] });
+      const bookDto: CreateAuthorBookDto = {
+        title: 'New Book',
+        publishedYear: 2023,
+        price: 25.99,
+      };
+      const newBook = createMockBook({ ...bookDto });
 
-//     it('should throw NotFoundException if author not found', async () => {
-//       authorsRepository.delete.mockResolvedValue({ affected: 0 });
+      authorsRepository.findOne.mockResolvedValueOnce(author);
+      authorsRepository.findOne.mockResolvedValueOnce({
+        ...author,
+        books: [existingBook, newBook],
+      });
+      booksRepository.create.mockReturnValue(newBook);
+      booksRepository.save.mockResolvedValue(newBook);
 
-//       await expect(service.deleteAuthor('1')).rejects.toThrow(
-//         NotFoundException,
-//       );
-//     });
-//   });
+      const result = await service.createBookForAuthor(author.id, bookDto);
 
-//   describe('clearAllAuthors', () => {
-//     it('should clear all authors', async () => {
-//       await service.clearAllAuthors();
+      expect(result.books).toHaveLength(2);
+    });
+  });
 
-//       expect(authorsRepository.clear).toHaveBeenCalled();
-//     });
-//   });
-// });
+  describe('removeBookFromAuthor', () => {
+    it('should remove book from author', async () => {
+      const author = createMockAuthor();
+      const book = createMockBook({ author });
+      booksRepository.findOne.mockResolvedValue(book);
+      booksRepository.save.mockResolvedValue({ ...book, author: null });
+      authorsRepository.findOne.mockResolvedValue({ ...author, books: [] });
+
+      const result = await service.removeBookFromAuthor(author.id, book.id);
+
+      expect(result.books).toHaveLength(0);
+    });
+
+    it('should throw NotFoundException if book not found', async () => {
+      booksRepository.findOne.mockResolvedValue(null);
+
+      await expect(
+        service.removeBookFromAuthor('author-id', 'book-id'),
+      ).rejects.toThrow(NotFoundException);
+    });
+
+    it('should throw NotFoundException if author not found', async () => {
+      const book = createMockBook();
+      booksRepository.findOne.mockResolvedValue(book);
+      authorsRepository.findOne.mockResolvedValue(null);
+
+      await expect(
+        service.removeBookFromAuthor('author-id', book.id),
+      ).rejects.toThrow(NotFoundException);
+    });
+  });
+
+  describe('updateAuthor', () => {
+    it('should update author info', async () => {
+      const author = createMockAuthor();
+      const updateDto: UpdateAuthorDto = { name: 'Updated Name' };
+      authorsRepository.findOneBy.mockResolvedValue(author);
+      authorsRepository.save.mockResolvedValue({ ...author, ...updateDto });
+
+      const result = await service.updateAuthor(author.id, updateDto);
+
+      expect(result.name).toBe('Updated Name');
+    });
+
+    it('should throw NotFoundException if author not found', async () => {
+      authorsRepository.findOneBy.mockResolvedValue(null);
+
+      await expect(
+        service.updateAuthor('invalid-id', { name: 'Updated' }),
+      ).rejects.toThrow(NotFoundException);
+    });
+
+    it('should handle partial updates', async () => {
+      const author = createMockAuthor();
+      const updateDto: UpdateAuthorDto = { biography: 'New Bio' };
+      authorsRepository.findOneBy.mockResolvedValue(author);
+      authorsRepository.save.mockResolvedValue({ ...author, ...updateDto });
+
+      const result = await service.updateAuthor(author.id, updateDto);
+
+      expect(result.biography).toBe('New Bio');
+      expect(result.name).toBe(author.name);
+    });
+  });
+
+  describe('deleteAuthor', () => {
+    it('should delete author', async () => {
+      authorsRepository.delete.mockResolvedValue({ affected: 1 });
+
+      await service.deleteAuthor('author-id');
+
+      expect(authorsRepository.delete).toHaveBeenCalledWith('author-id');
+    });
+
+    it('should throw NotFoundException if author not found', async () => {
+      authorsRepository.delete.mockResolvedValue({ affected: 0 });
+
+      await expect(service.deleteAuthor('author-id')).rejects.toThrow(
+        NotFoundException,
+      );
+    });
+  });
+
+  describe('clearAllAuthors', () => {
+    it('should clear all authors', async () => {
+      authorsRepository.clear.mockResolvedValue(undefined);
+
+      await service.clearAllAuthors();
+
+      expect(authorsRepository.clear).toHaveBeenCalled();
+    });
+
+    it('should handle empty repository', async () => {
+      authorsRepository.clear.mockResolvedValue(undefined);
+
+      await expect(service.clearAllAuthors()).resolves.toBeUndefined();
+    });
+  });
+});
