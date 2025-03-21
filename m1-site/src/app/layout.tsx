@@ -41,7 +41,8 @@ import "../styles/globals.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import GlobalLayout from "../components/layout/GlobalLayout"; 
+import GlobalLayout from "../components/layout/GlobalLayout";
+import BreadcrumbNav from "../components/layout/BreadcrumbNav ";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -57,24 +58,24 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-     <body className={inter.className}>
-
-        <GlobalLayout> {/* ✅ Wrap the page content inside GlobalLayout */}
+      <body className={inter.className}>
+        <GlobalLayout>
+          {" "}
+          {/* ✅ Wrap the page content inside GlobalLayout */}
+          <BreadcrumbNav />
           {children}
-       
-
-        <ToastContainer
-          position="top-right"
-          autoClose={3000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
-         </GlobalLayout>
+          <ToastContainer
+            position="top-right"
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
+        </GlobalLayout>
       </body>
     </html>
   );

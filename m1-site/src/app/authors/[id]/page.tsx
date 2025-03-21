@@ -221,6 +221,7 @@ import EditAuthorModal from "../../../components/authors/EditAuthorModal";
 import ConfirmationModal from "../../../components/ui/ConfirmationModal";
 import Link from "next/link";
 import { toast } from "react-toastify";
+import PageTitle from "../../../components/ui/PageTitle";
 
 const AuthorDetailsPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -294,6 +295,7 @@ const AuthorDetailsPage: React.FC = () => {
 
   return (
     <div className="p-6 max-w-4xl mx-auto">
+      <PageTitle title="Author Details" />
       {/* Author Info */}
       <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
         <img

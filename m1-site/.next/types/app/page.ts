@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 // File: C:\Users\godfr\OneDrive - JUNIA Grande école d'ingénieurs\Desktop\book\Book_Management\m1-site\src\app\page.tsx
-=======
-// File: C:\Users\OTHNIEL\Documents\FinalWebDev\Book_Management\m1-site\src\app\page.tsx
->>>>>>> 24173de7488fc98fefb8c936607efd6c7f104356
 import * as entry from '../../../src/app/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

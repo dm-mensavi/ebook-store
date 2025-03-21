@@ -2,6 +2,7 @@
 
 import GlobalLayout from "../components/layout/GlobalLayout";
 import { useState } from "react";
+import PageTitle from "../components/ui/PageTitle";
 // import Modal from "../components/ui/Modal"; // optional
 
 export default function Home() {
@@ -13,21 +14,11 @@ export default function Home() {
   };
 
   return (
-    
-      <div className="space-y-8">
-        <h1 className="text-4xl font-bold text-blue-600">
-          Hello World with Custom Components!
-        </h1>
+    <div className="space-y-8">
+      <PageTitle title="Welcome to the Book Management System" />
 
-        <button
-          onClick={() => setIsModalOpen(true)}
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
-        >
-          Open Custom Modal
-        </button>
-
-        {/* Uncomment if using Modal */}
-        {/* <Modal
+      {/* Uncomment if using Modal */}
+      {/* <Modal
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
           onConfirm={handleConfirm}
@@ -35,11 +26,9 @@ export default function Home() {
         >
           <p>This is your custom modal! Confirm or cancel the action.</p>
         </Modal> */}
-      </div>
-  
+    </div>
   );
 }
-
 
 // import GlobalLayout from "../components/layout/GlobalLayout";
 

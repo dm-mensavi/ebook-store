@@ -7,6 +7,8 @@ import Link from "next/link";
 import ConfirmationModal from "../../../components/ui/ConfirmationModal";
 import { toast } from "react-toastify";
 import DrawerComponent from "../../../components/layout/DrawerComponent";
+import Ratings from "../../../components/ui/Ratings";
+import PageTitle from "../../../components/ui/PageTitle";
 
 const BookDetailsPage: React.FC = () => {
   const router = useRouter();
@@ -62,13 +64,18 @@ const BookDetailsPage: React.FC = () => {
 
   return (
     <div className="p-4">
+      <PageTitle title="Book Details" />
       <h1 className="text-2xl font-bold">{book.title}</h1>
       <p className="mt-2 text-gray-600">Price: ${book.price.toFixed(2)}</p>
       <p className="mt-2 text-gray-600">Published Year: {book.publishedYear}</p>
       <p className="mt-2 text-gray-600">
+        Average Rating: {book.averageRating?.toFixed(1) ?? 0}
+      </p>
+      <Ratings rating={book.averageRating ?? 0} />
+      <p className="mt-2 text-gray-600">
         Author:{" "}
         <Link
-          href={`/authors/${book.authorName}`}
+          href={`/authors/${book.authorId}`}
           className="text-blue-500 hover:underline"
         >
           {book.authorName}

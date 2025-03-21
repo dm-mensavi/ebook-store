@@ -205,7 +205,7 @@
 // };
 
 // export default AuthorList;
-
+"use client";
 import React from "react";
 import { Author } from "../../models/Author";
 import AuthorCard from "./AuthorCard";
@@ -216,31 +216,12 @@ type AuthorListProps = {
   onDelete: (author: Author) => void;
 };
 
-const AuthorList: React.FC<AuthorListProps> = ({
-  authors,
-  onEdit,
-  onDelete,
-}) => {
+const AuthorList: React.FC<AuthorListProps> = ({ authors }) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
       {authors.map((author) => (
         <div key={author.id} className="relative">
           <AuthorCard author={author} />
-
-          {/* <div className="flex justify-end gap-2 mt-2">
-            <button
-              onClick={() => onEdit(author)}
-              className="text-blue-600 hover:text-blue-800 text-sm"
-            >
-              Edit
-            </button>
-            <button
-              onClick={() => onDelete(author)}
-              className="text-red-600 hover:text-red-800 text-sm"
-            >
-              Delete
-            </button>
-          </div> */}
         </div>
       ))}
     </div>
@@ -248,3 +229,54 @@ const AuthorList: React.FC<AuthorListProps> = ({
 };
 
 export default AuthorList;
+
+// "use client";
+
+// import React, { useState, useMemo } from "react";
+// import { Author } from "../../models/Author";
+// import AuthorCard from "./AuthorCard";
+
+// type AuthorListProps = {
+//   authors: Author[];
+// };
+
+// const AuthorList: React.FC<AuthorListProps> = ({ authors }) => {
+//   const [searchQuery, setSearchQuery] = useState("");
+
+//   // Filter authors by name (case-insensitive)
+//   const filteredAuthors = useMemo(() => {
+//     return authors.filter((author) =>
+//       author.name.toLowerCase().includes(searchQuery.toLowerCase())
+//     );
+//   }, [searchQuery, authors]);
+
+//   return (
+//     <div className="p-6">
+//       {/* Search Bar */}
+//       <div className="mb-6 w-full sm:w-1/2">
+//         <input
+//           type="text"
+//           placeholder="Search authors by name..."
+//           value={searchQuery}
+//           onChange={(e) => setSearchQuery(e.target.value)}
+//           className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+//         />
+//       </div>
+
+//       {/* Author Cards */}
+//       {filteredAuthors.length === 0 ? (
+//         <div className="text-center text-gray-500">No authors found.</div>
+//       ) : (
+//         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+//           {filteredAuthors.map((author) => (
+//             <div key={author.id} className="relative">
+//               <AuthorCard author={author} />
+//             </div>
+//           ))}
+//         </div>
+//       )}
+//     </div>
+//   );
+// };
+
+// export default AuthorList;
