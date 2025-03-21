@@ -7,6 +7,7 @@ import {
   Max,
   IsOptional,
   IsString,
+  IsNumber,
 } from 'class-validator';
 
 export class CreateRatingDto {
@@ -25,7 +26,7 @@ export class CreateRatingDto {
     description: 'Rating score from 1 to 5',
   })
   @IsNotEmpty()
-  @IsInt()
+  @IsNumber()
   @Min(1)
   @Max(5)
   stars: number;
