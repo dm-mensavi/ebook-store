@@ -36,6 +36,22 @@ const BookList: React.FC = () => {
     fetchBooks();
   }, []);
 
+  // const handleCreateBook = async (book: {
+  //   title: string;
+  //   publishedYear: number;
+  //   price: number;
+  //   authorId: string;
+  // }) => {
+  //   try {
+  //     const newBook = await createBook(book); // Call the API to create a book
+  //     setBooks((prevBooks) => [...prevBooks, newBook]); // Update the book list
+  //     toast.success("Book created successfully.");
+  //   } catch (err) {
+  //     console.error("Failed to create book:", err);
+  //     toast.error("Failed to create book.");
+  //   }
+  // };
+
   const handleCreateBook = async (book: {
     title: string;
     publishedYear: number;
@@ -43,9 +59,19 @@ const BookList: React.FC = () => {
     authorId: string;
   }) => {
     try {
-      const newBook = await createBook(book); // Call the API to create a book
-      setBooks((prevBooks) => [...prevBooks, newBook]); // Update the book list
+      await createBook(book); // Create the book
       toast.success("Book created successfully.");
+
+      // ✅ Refetch all books after creating one
+      let booksData = await getBooks();
+
+      // ✅ Step 3: Ensure averageRating defaults to 0 if missing
+      booksData = booksData.map((b) => ({
+        ...b,
+        averageRating: b.averageRating ?? 0, // fallback to 0 if undefined/null
+      }));
+
+      setBooks(booksData);
     } catch (err) {
       console.error("Failed to create book:", err);
       toast.error("Failed to create book.");
@@ -83,35 +109,36 @@ const BookList: React.FC = () => {
 
   return (
     <>
-      {/* Search Bar */}
-      <div className="m-5">
-        <input
-          type="text"
-          placeholder="Search by title..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-      </div>
+      <div className="flex justify-between items-center w-full">
+        {/* Search Bar */}
+        <div className="m-5 w-8/12">
+          <input
+            type="text"
+            placeholder="Search by title..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
 
-      {/* Sorting Dropdown */}
-      <div className="m-5">
-        <label htmlFor="sort" className="mr-2">
-          Sort by:
-        </label>
-        <select
-          id="sort"
-          value={sortOption}
-          onChange={(e) => setSortOption(e.target.value)}
-          className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          <option value="title">Title</option>
-          <option value="price">Price</option>
-          <option value="publishedYear">Published Year</option>
-          <option value="averageRating">Average Rating</option>
-        </select>
+        {/* Sorting Dropdown */}
+        <div className="m-5 flex items-center w-fit-content">
+          <label htmlFor="sort" className="mr-2">
+            Sort by:
+          </label>
+          <select
+            id="sort"
+            value={sortOption}
+            onChange={(e) => setSortOption(e.target.value)}
+            className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="title">Title</option>
+            <option value="price">Price</option>
+            <option value="publishedYear">Published Year</option>
+            <option value="averageRating">Average Rating</option>
+          </select>
+        </div>
       </div>
-
       {/* Button to open the Create Book Modal */}
       <div className="m-5">
         <button

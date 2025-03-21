@@ -291,10 +291,11 @@ import { Rating as RatingModel } from "../../models/Rating"; // Rating model
 import Rating from "@mui/material/Rating";
 import StarIcon from "@mui/icons-material/Star";
 import { toast } from "react-toastify"; // For toast notifications
+import Ratings from "../ui/Ratings";
 
 type RatingCardProps = {
   bookId: string; // The bookId is passed as a prop
-  averageRating: number;
+  averageRating?: number;
 };
 
 const RatingCard: React.FC<RatingCardProps> = ({ bookId, averageRating }) => {
@@ -302,6 +303,7 @@ const RatingCard: React.FC<RatingCardProps> = ({ bookId, averageRating }) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc"); // Sorting state
+  const [submitting, setSubmitting] = useState(false);
 
   // User rating state
   const [userRating, setUserRating] = useState<number | null>(null); // User's selected rating
@@ -332,31 +334,69 @@ const RatingCard: React.FC<RatingCardProps> = ({ bookId, averageRating }) => {
   });
 
   // Handle rating submission
+  // const handleSubmitRating = async () => {
+  //   if (userRating === null) {
+  //     //   alert("Please select a rating before submitting.");
+  //     toast.error("Please select a rating before submitting.");
+  //     return;
+  //   }
+
+  //   try {
+  //     // Call the createRating function
+  //     const newRating = await createRating({
+  //       stars: userRating,
+  //       comment: userComment,
+  //       bookId: bookId, // Pass the bookId from props
+  //     });
+
+  //     // Add the new rating to the list
+  //     setRatings((prevRatings) => [...prevRatings, newRating]);
+
+  //     // Reset the form
+  //     setUserRating(null);
+  //     setUserComment("");
+  //     toast.success("Rating submitted successfully!");
+  //   } catch (err) {
+  //     console.error("Failed to submit rating:", err);
+  //     toast.error("Failed to submit rating.");
+  //   }
+  // };
+
   const handleSubmitRating = async () => {
     if (userRating === null) {
-      //   alert("Please select a rating before submitting.");
       toast.error("Please select a rating before submitting.");
       return;
     }
 
     try {
-      // Call the createRating function
-      const newRating = await createRating({
+      setSubmitting(true);
+
+      const payload = {
         stars: userRating,
-        comment: userComment,
-        bookId: bookId, // Pass the bookId from props
-      });
+        bookId,
+        ...(userComment.trim() && { comment: userComment.trim() }),
+      };
 
-      // Add the new rating to the list
-      setRatings((prevRatings) => [...prevRatings, newRating]);
+      console.log("Submitting payload:", payload);
 
-      // Reset the form
+      await createRating(payload);
+
+      toast.success("Rating submitted successfully!");
+
+      const updatedRatings = await getRatingsByBookId(bookId);
+      setRatings(updatedRatings);
+
       setUserRating(null);
       setUserComment("");
-      toast.success("Rating submitted successfully!");
-    } catch (err) {
-      console.error("Failed to submit rating:", err);
-      toast.error("Failed to submit rating.");
+    } catch (err: any) {
+      console.error("Failed to submit rating:", err?.response?.data || err);
+      toast.error(
+        err?.response?.data?.message?.[0] ||
+          err?.response?.data?.message ||
+          "Failed to submit rating."
+      );
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -368,6 +408,11 @@ const RatingCard: React.FC<RatingCardProps> = ({ bookId, averageRating }) => {
     return <div className="text-red-500">{error}</div>;
   }
 
+  const calculatedAverageRating =
+    ratings.length > 0
+      ? ratings.reduce((sum, r) => sum + r.stars, 0) / ratings.length
+      : 0;
+
   return (
     <>
       <div className="mt-4">
@@ -376,19 +421,10 @@ const RatingCard: React.FC<RatingCardProps> = ({ bookId, averageRating }) => {
 
         <div className="flex items-center mt-2 flex-col">
           <div className="ml-2 text-gray-600 font-black text-3xl">
-            ({averageRating.toFixed(1)})
+            ({calculatedAverageRating.toFixed(1)})
           </div>
           <div className="flex items-center ">
-            <Rating
-              name="average-rating"
-              value={averageRating}
-              precision={0.1} // Show decimal places for the average
-              readOnly // Make the rating read-only
-              emptyIcon={
-                <StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />
-              }
-              size="large" // Increase the size of the stars
-            />
+            <Ratings rating={calculatedAverageRating} size="large" />
           </div>
         </div>
 
@@ -459,16 +495,19 @@ const RatingCard: React.FC<RatingCardProps> = ({ bookId, averageRating }) => {
             onChange={(e) => setUserComment(e.target.value)}
             className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             rows={4}
-            placeholder="Write your comment here..."
+            placeholder="Write your comment here... (optional)"
           />
         </div>
 
         {/* Submit Button */}
         <button
           onClick={handleSubmitRating}
-          className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+          disabled={submitting}
+          className={`mt-2 px-4 py-2 ${
+            submitting ? "bg-gray-400" : "bg-blue-500 hover:bg-blue-600"
+          } text-white rounded-md`}
         >
-          Submit Rating
+          {submitting ? "Submitting..." : "Submit Rating"}
         </button>
       </div>
     </>

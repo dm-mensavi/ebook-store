@@ -75,6 +75,7 @@ import Rating from "@mui/material/Rating";
 import StarIcon from "@mui/icons-material/Star";
 import RatingCard from "../ratings/RatingCard";
 import DrawerComponent from "../layout/DrawerComponent";
+import Ratings from "../ui/Ratings";
 
 type BookCardProps = {
   book: Book;
@@ -82,9 +83,14 @@ type BookCardProps = {
 
 const BookCard: React.FC<BookCardProps> = ({ book }) => {
   const [showRatings, setShowRatings] = useState<boolean>(false);
+  const lengthOfTitle = 20;
   return (
     <div className="p-4 border rounded-lg shadow-sm hover:shadow-md transition-shadow">
-      <h2 className="text-xl font-semibold">{book.title}</h2>
+      <h2 className="text-xl font-semibold">
+        {book.title.length > lengthOfTitle
+          ? `${book.title.slice(0, lengthOfTitle)}...`
+          : book.title}
+      </h2>
       <p className="text-gray-600">By {book.authorName}</p>
       <p className="mt-2 text-sm text-gray-700">
         Published: {book.publishedYear}
@@ -94,17 +100,9 @@ const BookCard: React.FC<BookCardProps> = ({ book }) => {
       </p>
       {book.averageRating !== undefined ? (
         <div className="mt-2 flex items-center">
-          <Rating
-            name="read-only"
-            value={book.averageRating}
-            precision={0.5}
-            readOnly
-            emptyIcon={
-              <StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />
-            }
-          />
+          <Ratings rating={book.averageRating} />
           <span className="ml-2 text-sm text-gray-600">
-            ({book.averageRating})
+            ({(book.averageRating ?? 0).toFixed(1)})
           </span>
         </div>
       ) : (
@@ -117,10 +115,7 @@ const BookCard: React.FC<BookCardProps> = ({ book }) => {
       >
         {showRatings ? "Hide Ratings" : "Show Ratings"}
       </button> */}
-      <DrawerComponent
-        bookId={book.id}
-        averageRating={book.averageRating ?? 0}
-      />
+
       {/* {showRatings && <RatingCard bookId={book.id} />} */}
     </div>
   );
