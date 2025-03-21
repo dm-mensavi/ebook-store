@@ -24,7 +24,7 @@ import {
 } from '@nestjs/swagger';
 import { AuthorResponseDto } from '../dto/author-response.dto';
 import { AuthorPresenter } from '../presenters/authors.presenters';
-import { AddBookToAuthorResponseDto } from '../dto/add-books-author-response.dto';
+import { CreateAuthorBookDto } from '../dto/create-book.dto';
 
 @ApiTags('Authors')
 @Controller('authors')
@@ -43,6 +43,25 @@ export class AuthorsController {
   ): Promise<AuthorResponseDto> {
     const author = await this.authorsService.createAuthor(createAuthorDto);
     return AuthorPresenter.toResponse(author);
+  }
+
+  @Post(':id/books')
+  @ApiOperation({ summary: 'Create a new book and assign it to an author' })
+  @ApiParam({ name: 'id', description: 'UUID of the author' })
+  @ApiResponse({
+    status: 201,
+    description: 'Book created and added to author successfully.',
+    type: AuthorResponseDto,
+  })
+  async createBookForAuthor(
+    @Param('id') authorId: string,
+    @Body() createAuthorBookDto: CreateAuthorBookDto,
+  ): Promise<AuthorResponseDto> {
+    const author = await this.authorsService.createBookForAuthor(
+      authorId,
+      createAuthorBookDto,
+    );
+    return AuthorPresenter.toDetailedResponse(author);
   }
 
   @Get()
@@ -89,23 +108,6 @@ export class AuthorsController {
 
     const author = await this.authorsService.findAuthorByIdWithStats(id);
     return AuthorPresenter.toResponse(author);
-  }
-
-  @Post(':id/books/:bookId')
-  @ApiOperation({ summary: 'Add a book to an author' })
-  @ApiParam({ name: 'id', description: 'The ID of the author' })
-  @ApiParam({ name: 'bookId', description: 'The ID of the book to add' })
-  @ApiResponse({
-    status: 201,
-    description: 'Book added to author successfully',
-    type: AddBookToAuthorResponseDto,
-  })
-  async addBook(
-    @Param('id') authorId: string,
-    @Param('bookId') bookId: string,
-  ): Promise<AddBookToAuthorResponseDto> {
-    const author = await this.authorsService.addBookToAuthor(authorId, bookId);
-    return new AddBookToAuthorResponseDto(author);
   }
 
   @Delete(':id/books/:bookId')

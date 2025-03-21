@@ -7,7 +7,7 @@ export class AuthorPresenter {
       ...raw,
       bookCount: raw.bookCount ?? raw.books?.length ?? 0,
       averageRating: raw.averageRating ?? null,
-      books: [], // Basic response doesn't return books
+      books: [],
     });
   }
 

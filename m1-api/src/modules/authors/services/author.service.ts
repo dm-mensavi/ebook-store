@@ -4,6 +4,7 @@ import { BooksRepository } from '../../books/repositories/book.repository'; // Y
 import { CreateAuthorDto } from '../dto/create-author.dto';
 import { UpdateAuthorDto } from '../dto/update-author.dto';
 import { Author } from '../models/author.entity';
+import { CreateAuthorBookDto } from '../dto/create-book.dto';
 
 @Injectable()
 export class AuthorsService {
@@ -86,27 +87,26 @@ export class AuthorsService {
 
     return author;
   }
-
-  // Add a book to an author
-  async addBookToAuthor(authorId: string, bookId: string): Promise<Author> {
+  async createBookForAuthor(
+    authorId: string,
+    createAuthorBookDto: CreateAuthorBookDto,
+  ): Promise<Author> {
     const author = await this.authorsRepository.findOne({
       where: { id: authorId },
       relations: ['books'],
     });
+
     if (!author) {
       throw new NotFoundException(`Author with id ${authorId} not found`);
     }
 
-    const book = await this.booksRepository.findOne({ where: { id: bookId } });
-    if (!book) {
-      throw new NotFoundException(`Book with id ${bookId} not found`);
-    }
+    const newBook = this.booksRepository.create({
+      ...createAuthorBookDto,
+      author,
+    });
 
-    // Add author to the book
-    book.author = author;
-    await this.booksRepository.save(book);
+    await this.booksRepository.save(newBook);
 
-    // Return the updated author with their books
     return this.findByIdWithBooks(authorId);
   }
 
