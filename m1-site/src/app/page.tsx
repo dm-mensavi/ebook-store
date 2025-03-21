@@ -1,12 +1,9 @@
 "use client";
 
-import "../styles/globals.css";
-
-import { useState } from "react";
-import Modal from "../components/ui/Modal";
 import GlobalLayout from "../components/layout/GlobalLayout";
-
-import { AppBar, Toolbar, Typography } from "@mui/material";
+import { useState } from "react";
+import PageTitle from "../components/ui/PageTitle";
+// import Modal from "../components/ui/Modal"; // optional
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,29 +14,28 @@ export default function Home() {
   };
 
   return (
-    <GlobalLayout
-      breadcrumbs={[{ label: "Home", href: "/" }, { label: "Dashboard" }]}
-    >
-      {/* Page content */}
-      <h1 className="text-4xl font-bold text-blue-600">
-        Hello World with Custom Components!
-      </h1>
+    <div className="space-y-8">
+      <PageTitle title="Welcome to the Book Management System" />
 
-      <button
-        onClick={() => setIsModalOpen(true)}
-        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
-      >
-        Open Custom Modal
-      </button>
-
+      {/* Uncomment if using Modal */}
       {/* <Modal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onConfirm={handleConfirm}
-        title="Confirm Action"
-      > */}
-      <p>This is your custom modal! Confirm or cancel the action.</p>
-      {/* </Modal> */}
-    </GlobalLayout>
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onConfirm={handleConfirm}
+          title="Confirm Action"
+        >
+          <p>This is your custom modal! Confirm or cancel the action.</p>
+        </Modal> */}
+    </div>
   );
 }
+
+// import GlobalLayout from "../components/layout/GlobalLayout";
+
+// export default function Home() {
+//   return (
+//     <GlobalLayout>
+//       <h1>Hello from Home Page!</h1>
+//     </GlobalLayout>
+//   );
+// }

@@ -98,7 +98,10 @@ const DrawerComponent: React.FC<DrawerComponentProps> = ({
   return (
     <div>
       {/* Button to toggle the Drawer */}
-      <div className="cursor-pointer" onClick={toggleDrawer(true)}>
+      <div
+        className="cursor-pointer text-orange-500 mt-2"
+        onClick={toggleDrawer(true)}
+      >
         View Ratings
       </div>
 
