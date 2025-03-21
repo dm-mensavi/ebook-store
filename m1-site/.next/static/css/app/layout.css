@@ -1507,6 +1507,9 @@ video {
 .h-10 {
   height: 2.5rem;
 }
+.h-12 {
+  height: 3rem;
+}
 .h-32 {
   height: 8rem;
 }
@@ -1534,6 +1537,12 @@ video {
 .w-10 {
   width: 2.5rem;
 }
+.w-12 {
+  width: 3rem;
+}
+.w-3\/12 {
+  width: 25%;
+}
 .w-32 {
   width: 8rem;
 }
@@ -1549,6 +1558,9 @@ video {
 .w-8\/12 {
   width: 66.666667%;
 }
+.w-9\/12 {
+  width: 75%;
+}
 .w-full {
   width: 100%;
 }
@@ -1557,6 +1569,9 @@ video {
 }
 .max-w-6xl {
   max-width: 72rem;
+}
+.max-w-7xl {
+  max-width: 80rem;
 }
 .max-w-md {
   max-width: 28rem;
@@ -1645,6 +1660,11 @@ video {
   --tw-space-x-reverse: 0;
   margin-right: calc(2rem * var(--tw-space-x-reverse));
   margin-left: calc(2rem * calc(1 - var(--tw-space-x-reverse)));
+}
+.space-y-12 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(3rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(3rem * var(--tw-space-y-reverse));
 }
 .space-y-2 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
@@ -1758,6 +1778,9 @@ video {
 }
 .p-2 {
   padding: 0.5rem;
+}
+.p-3 {
+  padding: 0.75rem;
 }
 .p-4 {
   padding: 1rem;
@@ -2110,6 +2133,10 @@ video {
 
   .md\:grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .md\:grid-cols-\[2fr_1fr\] {
+    grid-template-columns: 2fr 1fr;
   }
 
   .md\:p-8 {

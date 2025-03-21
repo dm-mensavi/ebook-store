@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import Breadcrumbs from '@mui/material/Breadcrumbs';
-import Typography from '@mui/material/Typography';
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import Link from "next/link";
+import Breadcrumbs from "@mui/material/Breadcrumbs";
+import Typography from "@mui/material/Typography";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 
 type BreadcrumbItem = {
   label: string;
@@ -22,8 +22,8 @@ const Breadcrumb = ({ items }: BreadcrumbProps) => {
       separator={<NavigateNextIcon fontSize="small" />}
       aria-label="breadcrumb"
       sx={{
-        mb: 4,
-        fontSize: '0.875rem', // text-sm equivalent
+        mb: 1,
+        fontSize: "0.875rem", // text-sm equivalent
       }}
     >
       {items.map((item, index) =>
@@ -32,8 +32,8 @@ const Breadcrumb = ({ items }: BreadcrumbProps) => {
             key={index}
             href={item.href}
             style={{
-              color: '#2563EB', // Tailwind's text-blue-600 color
-              textDecoration: 'none',
+              color: "#2563EB", // Tailwind's text-blue-600 color
+              textDecoration: "none",
               fontWeight: 500,
             }}
           >
@@ -43,7 +43,7 @@ const Breadcrumb = ({ items }: BreadcrumbProps) => {
           <Typography
             key={index}
             sx={{
-              color: '#111827', // Tailwind's text-gray-900 color
+              color: "#111827", // Tailwind's text-gray-900 color
               fontWeight: 600,
             }}
           >
