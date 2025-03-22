@@ -49,6 +49,9 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Book Management App",
   description: "Manage your books and authors",
+  icons: {
+    icon: "/hero.png",
+  },
 };
 
 export default function RootLayout({
