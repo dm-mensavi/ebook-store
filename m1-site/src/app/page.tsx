@@ -150,13 +150,14 @@ import React from "react";
 import PageTitle from "../components/ui/PageTitle";
 import TopRatings from "../components/ui/TopRatings"; // Assuming you have this component
 import TopAuthors from "../components/ui/TopAuthors";
+import HomePage from "../components/layout/Homepage";
 
-const HomePage: React.FC = () => {
+const Home: React.FC = () => {
   return (
-    <div className="p-6 space-y-12 max-w-7xl mx-auto">
+    <div className="p-2 space-y-12 max-w-7xl mx-auto">
       {/* Page Title */}
-      <PageTitle title="Welcome to the Book Management System" />
-
+      <PageTitle title="Welcome to CodiBook" />
+      <HomePage />
       {/* Main Content Layout */}
       <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-6 w-full">
         {/* Top Rated Books Section */}
@@ -175,4 +176,4 @@ const HomePage: React.FC = () => {
   );
 };
 
-export default HomePage;
+export default Home;
