@@ -12,10 +12,10 @@ export class FilterBookDto {
 
   @ApiPropertyOptional({
     example: 'publishedYear',
-    enum: ['title', 'price', 'publishedYear'],
+    enum: ['title', 'price', 'publishedYear', 'averageRating'],
   })
   @IsOptional()
-  @IsIn(['title', 'price', 'publishedYear'])
+  @IsIn(['title', 'price', 'publishedYear', 'averageRating'])
   sortBy?: string;
 
   @ApiPropertyOptional({ example: 'ASC', enum: ['ASC', 'DESC'] })

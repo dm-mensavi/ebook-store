@@ -1,4 +1,7 @@
 {
+<<<<<<< HEAD
+  "pages": {}
+=======
   "pages": {
     "/books/page": [
       "static/chunks/webpack.js",
@@ -55,4 +58,5 @@
       "static/chunks/app/books/[id]/loading.js"
     ]
   }
+>>>>>>> 25d8890fa641cf457719186126ce0ff8989b0d81
 }
