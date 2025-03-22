@@ -23,7 +23,7 @@ const TopAuthors: React.FC = () => {
             (a: Author, b: Author) =>
               (b.averageRating ?? 0) - (a.averageRating ?? 0)
           )
-          .slice(0, 5); // Get top 5 authors
+          .slice(0, 4); // Get top 5 authors
 
         setTopAuthors(sortedAuthors);
       } catch (error) {

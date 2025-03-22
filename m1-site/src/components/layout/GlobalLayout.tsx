@@ -20,9 +20,9 @@ const GlobalLayout = ({ children }: GlobalLayoutProps) => {
           <Link href="/">
             <div className="flex items-center space-x-2">
               <div className="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">
-                H
+                C
               </div>
-              <span className="font-semibold text-lg">CODERScoDe</span>
+              <span className="font-semibold text-lg">CodiBook</span>
             </div>
           </Link>
 
@@ -38,19 +38,12 @@ const GlobalLayout = ({ children }: GlobalLayoutProps) => {
               <Link href="/authors" className="hover:text-blue-600 transition">
                 Authors
               </Link>
-              <span className="bg-orange-400 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
-                HIRING
-              </span>
             </div>
           </nav>
 
           {/* Right - Language Selector, GitHub Icon, Hamburger Menu */}
           <div className="flex items-center space-x-4">
             {/* Language Dropdown (Desktop Only) */}
-            <button className="hidden md:flex items-center text-sm hover:text-blue-600 transition">
-              En
-              <ChevronDown size={14} className="ml-1" />
-            </button>
 
             {/* GitHub Icon (Desktop Only) */}
             <a
@@ -118,10 +111,6 @@ const GlobalLayout = ({ children }: GlobalLayoutProps) => {
           </Link>
 
           {/* Language Dropdown */}
-          <button className="flex items-center text-sm hover:text-blue-600 transition">
-            En
-            <ChevronDown size={14} className="ml-1" />
-          </button>
 
           {/* GitHub Icon */}
           <a
