@@ -1,20 +1,58 @@
 {
   "pages": {
+    "/books/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/books/page.css",
+      "static/chunks/app/books/page.js"
+    ],
+    "/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/layout.css",
+      "static/chunks/app/layout.js"
+    ],
     "/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/page.css",
       "static/chunks/app/page.js"
     ],
-    "/layout": [
+    "/authors/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/layout.js"
+      "static/css/app/authors/page.css",
+      "static/chunks/app/authors/page.js"
     ],
-    "/books/page": [
+    "/authors/[id]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/books/page.js"
+      "static/chunks/app/authors/[id]/page.js"
+    ],
+    "/authors/[id]/error": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/authors/[id]/error.js"
+    ],
+    "/authors/[id]/loading": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/authors/[id]/loading.js"
+    ],
+    "/books/[id]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/books/[id]/page.js"
+    ],
+    "/books/[id]/error": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/books/[id]/error.js"
+    ],
+    "/books/[id]/loading": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/books/[id]/loading.js"
     ]
   }
 }

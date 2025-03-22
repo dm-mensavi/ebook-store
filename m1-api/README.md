@@ -1,6 +1,3 @@
-Absolutely! Here’s a clean, professional `README.md` for your **Backend (NestJS + SQLite) Book Management System**. It explains what the project is, how to run it, technologies used, and the API overview.
-
-Feel free to customize the project name, author credits, etc.
 
 ---
 
@@ -8,7 +5,7 @@ Feel free to customize the project name, author credits, etc.
 
 A backend application built with **NestJS**, **TypeORM**, and **SQLite**, providing a complete **Library Book Management System**.
 
-This system manages **Authors**, **Books**, and **Ratings**, offering CRUD functionality, search and filter capabilities, and relations between the entities.
+This system manages **Authors**, **Books**, and **Ratings**, offering CRUD functionality, search and filter capabilities, relations between entities, and more.
 
 ---
 
@@ -24,21 +21,26 @@ This system manages **Authors**, **Books**, and **Ratings**, offering CRUD funct
 ✅ Global validation and clean functional programming practices  
 ✅ Fully unit-tested services and controllers  
 ✅ E2E testing with **Supertest**  
-✅ Code style enforced with **ESLint** and **Prettier**
+✅ Code style enforced with **ESLint** and **Prettier**  
+✅ **Swagger UI** for API documentation  
+✅ **Database seeding** with Faker.js for development  
+✅ Extensible project structure aligned with clean architecture principles  
 
 ---
 
 ## 🛠️ Tech Stack
 
-| Name         | Description                     |
-|--------------|---------------------------------|
-| **NestJS**   | Backend Framework (Node.js + TypeScript) |
-| **TypeORM**  | ORM for database interaction    |
-| **SQLite**   | Lightweight SQL database        |
-| **Jest**     | Unit & E2E testing framework    |
-| **Supertest**| E2E HTTP assertions             |
-| **ESLint**   | Code linting                   |
-| **Prettier** | Code formatting                |
+| Name           | Description                               |
+|----------------|-------------------------------------------|
+| **NestJS**     | Backend Framework (Node.js + TypeScript)  |
+| **TypeORM**    | ORM for database interaction              |
+| **SQLite**     | Lightweight SQL database                  |
+| **Jest**       | Unit & E2E testing framework              |
+| **Supertest**  | E2E HTTP assertions                       |
+| **Swagger UI** | API Documentation Interface (`@nestjs/swagger`) |
+| **Faker.js**   | Fake data generation for database seeding |
+| **ESLint**     | Code linting                              |
+| **Prettier**   | Code formatting                           |
 
 ---
 
@@ -55,12 +57,26 @@ src/
       repositories/
       services/
     books/
-      ...
+      controllers/
+      dto/
+      models/
+      presenters/
+      repositories/
+      services/
     ratings/
-      ...
+      controllers/
+      dto/
+      models/
+      presenters/
+      repositories/
+      services/
+  common/
+    seed/                  # Seeder scripts and logic
+    swagger/               # Swagger setup and configuration
   app.controller.ts
   app.service.ts
   app.module.ts
+  main.ts
 ```
 
 ---
@@ -107,9 +123,27 @@ npm run start:prod
 - Database file: `library.db`  
 - Automatically created when running the app (`synchronize: true` in `TypeORM`)
 
+#### Seed Database with Sample Data
+Seeder creates sample authors, books, and ratings with **Faker.js**.
+
+```bash
+npm run seed
+```
+
+Seeder is located in `src/common/seed`.
+
 ---
 
-### 5. Running Tests
+### 5. API Documentation (Swagger UI)
+- Runs automatically when the server starts
+- Access Swagger UI at:  
+  👉 [http://localhost:3000/api](http://localhost:3000/api/docs#)
+
+Provides detailed documentation for all API endpoints with available parameters and responses.
+
+---
+
+### 6. Running Tests
 #### Unit Tests
 ```bash
 npm run test
@@ -130,19 +164,20 @@ npm run test:cov
 ## 📝 API Endpoints Overview
 
 ### Root
-- `GET /`  
-  Health check / welcome message.
+| Method | Endpoint | Description                     |
+|--------|----------|---------------------------------|
+| GET    | `/`      | Health check / welcome message. |
 
 ---
 
 ### Authors
-| Method | Endpoint     | Description                        |
-|--------|--------------|------------------------------------|
-| GET    | `/authors`   | List authors (search, sort)       |
-| GET    | `/authors/:id` | Author details with stats       |
-| POST   | `/authors`   | Create a new author               |
-| PATCH  | `/authors/:id` | Update an author                |
-| DELETE | `/authors/:id` | Delete an author                |
+| Method | Endpoint       | Description                        |
+|--------|----------------|------------------------------------|
+| GET    | `/authors`     | List authors (search, sort)        |
+| GET    | `/authors/:id` | Author details with stats          |
+| POST   | `/authors`     | Create a new author                |
+| PATCH  | `/authors/:id` | Update an author                   |
+| DELETE | `/authors/:id` | Delete an author                   |
 
 ---
 
@@ -162,49 +197,60 @@ npm run test:cov
 |--------|---------------------------|------------------------------------|
 | GET    | `/ratings/book/:bookId`   | Get ratings for a specific book    |
 | POST   | `/ratings`                | Add a new rating                   |
-| PATCH  | `/ratings/:id`            | Update a rating (optional)         |
-| DELETE | `/ratings/:id`            | Delete a rating (optional)         |
+| PATCH  | `/ratings/:id`            | Update a rating                    |
+| DELETE | `/ratings/:id`            | Delete a rating                    |
 
 ---
 
 ## ⚙️ Functional Programming & Validation
 - Global validation using NestJS `ValidationPipe`
-- FP practices:  
+- Functional programming principles:  
   - `map()`, `filter()` instead of `for`/`if`  
-  - Nullish coalescing (`??`) and destructuring  
-- Clean, reusable Presenters to shape API responses
+  - Nullish coalescing (`??`), destructuring, and immutability
+- Presenters for shaping clean, consistent API responses
 
 ---
 
 ## 📚 Documentation
-- Swagger (optional, future step)
+- **Swagger UI**: Auto-generated API docs at `/api/docs#`
 - See `src/modules/**` for DTOs, Presenters, and Repositories
+- `common/seed` for Seeder logic
+- `common/swagger` for Swagger setup
 
 ---
 
 ## 🧪 Testing
-- 100% unit test coverage for services and controllers
+- 100% unit test coverage for services and controllers (goal)
 - E2E tests cover HTTP requests & database integration
 - Run `npm run test:cov` for coverage reports
 
 ---
 
 ## 📌 To-Do / Improvements
-- Add Swagger API docs (`@nestjs/swagger`)
-- Seed database with fixtures
-- Implement user authentication (optional)
-- Pagination for large datasets (optional)
-- Dockerize the app (optional)
+- [x] Add Swagger API docs (`@nestjs/swagger`)
+- [x] Seed database with fixtures using Faker.js
+- [ ] Implement user authentication (optional)
+- [ ] Pagination for large datasets (optional)
+- [ ] Dockerize the app (optional)
 
 ---
 
 ## ✨ Author(s)
 **Library Book Management Backend**  
-Built by [Your Name / Team Name]
+Built by CodersCode
 
 ---
 
 ## License
 This project is licensed under the MIT License.
+
+---
+
+## 🔗 Resources
+- [NestJS Documentation](https://docs.nestjs.com/)
+- [TypeORM Documentation](https://typeorm.io/)
+- [SQLite Documentation](https://www.sqlite.org/docs.html)
+- [Faker.js](https://fakerjs.dev/)
+- [Swagger UI](https://swagger.io/tools/swagger-ui/)
 
 ---

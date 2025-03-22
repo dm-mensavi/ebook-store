@@ -1,7 +1,13 @@
-import React from "react";
+"use client";
 
-function page() {
-  return <div>Books</div>;
+import BookList from "../../components/books/BookList";
+import PageTitle from "../../components/ui/PageTitle";
+
+export default function BooksPage() {
+  return (
+    <>
+      <PageTitle title="Books List" />
+      <BookList />
+    </>
+  );
 }
-
-export default page;

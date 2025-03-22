@@ -1,10 +1,11 @@
-import { Author } from './Author';  // Importing Author to reference it
+import { Author } from "./Author"; // Importing Author to reference it
 
-export type Book ={
-  id: number;
+export type Book = {
+  id: string;
   title: string;
   publishedYear: number;
   price: number;
-  author: Author;                  // The related author (nested object)
-  averageRating?: number;          // Optional: average of ratings
-}
+  authorName: string; // The related author (nested object)
+  averageRating?: number; // Optional: average of ratings
+  authorId: string;
+};
