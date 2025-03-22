@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import DrawerComponent from "../../../components/layout/DrawerComponent";
 import Ratings from "../../../components/ui/Ratings";
 import PageTitle from "../../../components/ui/PageTitle";
+import Loading from "../../../components/ui/Loading";
 
 const BookDetailsPage: React.FC = () => {
   const router = useRouter();
@@ -51,7 +52,7 @@ const BookDetailsPage: React.FC = () => {
   };
 
   if (loading) {
-    return <div>Loading book details...</div>;
+    return <Loading message="Fetching book details..." />;
   }
 
   if (error) {
