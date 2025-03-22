@@ -26,6 +26,12 @@ export class BookResponseDto {
   publishedYear: number;
 
   @ApiProperty({
+    example: 'd9d7b00e-12ab-4a22-a2f8-1cbfdf2b9444',
+    description: 'Unique identifier for the author who wrote the book',
+  })
+  authorId: string;
+
+  @ApiProperty({
     example: 'J.K. Rowling',
     description: 'Name of the author who wrote the book',
   })
