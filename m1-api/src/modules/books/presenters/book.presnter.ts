@@ -8,6 +8,7 @@ export class BookPresenter {
       price: Number(raw.price),
       publishedYear: raw.publishedYear,
       authorName: raw.authorName,
+      authorId: raw.authorId,
       averageRating:
         raw.averageRating !== null
           ? roundToTwo(Number(raw.averageRating))

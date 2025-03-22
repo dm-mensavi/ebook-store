@@ -21,6 +21,7 @@ export class BooksRepository extends Repository<Book> {
       .addSelect('book.price', 'price')
       .addSelect('book.publishedYear', 'publishedYear')
       .addSelect('author.name', 'authorName')
+      .addSelect('author.id', 'authorId')
       .addSelect('AVG(rating.stars)', 'averageRating')
       .groupBy('book.id');
 
@@ -30,7 +31,11 @@ export class BooksRepository extends Repository<Book> {
       });
     }
 
-    query.orderBy(`book.${sortBy}`, sortOrder);
+    if (sortBy === 'averageRating') {
+      query.orderBy('AVG(rating.stars)', sortOrder);
+    } else {
+      query.orderBy(`book.${sortBy}`, sortOrder);
+    }
 
     return query.getRawMany();
   }
@@ -44,6 +49,7 @@ export class BooksRepository extends Repository<Book> {
       .addSelect('book.price', 'price')
       .addSelect('book.publishedYear', 'publishedYear')
       .addSelect('author.name', 'authorName')
+      .addSelect('author.id', 'authorId')
       .addSelect('AVG(rating.stars)', 'averageRating')
       .where('book.id = :bookId', { bookId })
       .groupBy('book.id')
