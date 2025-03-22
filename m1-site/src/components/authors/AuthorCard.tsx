@@ -35,11 +35,11 @@ const AuthorCard: React.FC<AuthorCardProps> = ({ author }) => {
         <div className="mt-4 text-center">
           <p className="text-sm text-gray-800">
             Books Written:{" "}
-            <span className="font-medium">{author.bookCount}</span>
+            <span className="font-medium">{author.bookCount ?? 0}</span>
           </p>
           <div className="flex items-center justify-center gap-3">
             <Ratings rating={author.averageRating} />
-            <span>{author.averageRating?.toFixed(1)}</span>
+            <span>{(author.averageRating ?? 0).toFixed(1)}</span>
           </div>
         </div>
 

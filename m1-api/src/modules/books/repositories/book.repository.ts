@@ -31,7 +31,11 @@ export class BooksRepository extends Repository<Book> {
       });
     }
 
-    query.orderBy(`book.${sortBy}`, sortOrder);
+    if (sortBy === 'averageRating') {
+      query.orderBy('AVG(rating.stars)', sortOrder);
+    } else {
+      query.orderBy(`book.${sortBy}`, sortOrder);
+    }
 
     return query.getRawMany();
   }

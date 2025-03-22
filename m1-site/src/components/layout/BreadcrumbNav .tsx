@@ -58,7 +58,7 @@ const BreadcrumbNav = () => {
   }, [pathname]);
 
   return (
-    <Breadcrumbs aria-label="breadcrumb" separator="›" className="py-4 px-6">
+    <Breadcrumbs aria-label="breadcrumb" separator="›" className=" px-6">
       <Link href="/" className="text-blue-600 hover:underline">
         Home
       </Link>

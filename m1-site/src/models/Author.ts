@@ -1,3 +1,4 @@
+import { Book } from "./Book";
 export type Author = {
   id: string;
   name: string;
@@ -6,4 +7,9 @@ export type Author = {
   numberOfBooks?: number; // Optional: number of books written by the author.
   averageRating?: number; // Optional: mean of ratings from all their books.
   bookCount?: number; // Optional: number of books written by the author.
+  books: {
+    id: string;
+    title: string;
+    link: string;
+  }[];
 };
