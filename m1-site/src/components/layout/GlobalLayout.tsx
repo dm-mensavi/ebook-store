@@ -3,6 +3,7 @@
 import { ReactNode, useState } from "react";
 import Link from "next/link";
 import { ChevronDown, Menu, X, Github } from "lucide-react"; // Github icon added here
+import Footer from "./Footer";
 
 type GlobalLayoutProps = {
   children: ReactNode;
@@ -128,6 +129,7 @@ const GlobalLayout = ({ children }: GlobalLayoutProps) => {
       <main className="flex-1 w-full max-w-6xl mx-auto p-4 md:p-8 space-y-8">
         {children}
       </main>
+      <Footer />
     </div>
   );
 };

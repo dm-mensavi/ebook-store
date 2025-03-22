@@ -15,6 +15,7 @@ import Link from "next/link";
 import { toast } from "react-toastify";
 import Ratings from "../../../components/ui/Ratings";
 import { motion } from "framer-motion";
+import Loading from "../../../components/ui/Loading";
 
 const AuthorDetailsPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -117,7 +118,7 @@ const AuthorDetailsPage: React.FC = () => {
   };
 
   if (loading) {
-    return <div className="text-center py-10">Loading author details...</div>;
+    return <Loading message="Loading author details..." />;
   }
 
   if (!author) {

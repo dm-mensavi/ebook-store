@@ -40,30 +40,6 @@ export const getAuthorById = async (id: string) => {
   }
 };
 
-// ✅ Update an author
-// export const updateAuthor = async (
-//   id: string,
-//   updatedData: {
-//     name?: string;
-//     biography?: string;
-//     photo?: string;
-//   }
-// ): Promise<Author> => {
-//   const cleanPayload: Record<string, any> = {};
-
-//   if (updatedData.name !== undefined) cleanPayload.name = updatedData.name;
-//   if (updatedData.biography !== undefined)
-//     cleanPayload.biography = updatedData.biography;
-//   if (updatedData.photo !== undefined) cleanPayload.photo = updatedData.photo;
-
-//   try {
-//     const response = await axios.patch(`${API_URL}/${id}`, cleanPayload);
-//     return response.data;
-//   } catch (error: any) {
-//     console.error("Error updating author:", error?.response?.data || error);
-//     throw error;
-//   }
-// };
 export const updateAuthor = async (
   id: string,
   updatedData: {
