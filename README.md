@@ -89,7 +89,7 @@ npm run start:prod
 
 Frontend (ReactJS)
 npm run build
-# Deploy the build/ folder to Netlify, Vercel, etc.
+Deploy the build/ folder to Netlify, Vercel, etc.
 
 ## 👥 Team Members
 - 👤 Godfred Owusu Mireku
