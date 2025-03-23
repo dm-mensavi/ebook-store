@@ -106,7 +106,6 @@ Thank you for checking out our project! 😊
 This project is licensed under the MIT License.
 
 ## 🔗 Resources
-## 🔗 Resources
 
 - [ReactJS](https://reactjs.org/)
 - [NestJS](https://nestjs.com/)
