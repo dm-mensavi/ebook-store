@@ -50,46 +50,53 @@ Whether you are a librarian, a reader, or just someone who loves organized data,
 
 ---
 
-### 1. Clone the Repository
-git clone https://github.com/your-username/library-book-management-system.git
-cd library-book-management-system
+### Clone the Repository
+- git clone https://github.com/your-username/library-book-management-system.git
+- cd library-book-management-system
+
+---
 
 ### ⚙️ Setting Up the Backend (Server)
-cd server
-npm install
-npm run seed         # (Optional) Populate with fake data
-npm run start:dev
+- cd server
+- npm install
+- npm run seed         # (Optional) Populate with fake data
+- npm run start:dev
 
 API Documentation:
 - Swagger UI: 👉 http://localhost:3000/api
 
 
 ### ⚙️ Setting Up the Frontend (Client)
-cd client
-npm install
-npm start
+- cd client
+- npm install
+- npm start
 
 Frontend Runs On:
 👉 http://localhost:3000
 
+--- 
+
 ## 🔥 Features
-✅ Author & Book Management (CRUD)
-✅ Book Ratings and Average Computation
-✅ Search, Filter, and Sort
-✅ Swagger API Documentation
-✅ Responsive UI with ReactJS
-✅ SQLite database for easy setup
-✅ Testing (Unit & E2E on backend)
-✅ Clean architecture, scalable design
+- ✅ Author & Book Management (CRUD)
+- ✅ Book Ratings and Average Computation
+- ✅ Search, Filter, and Sort
+- ✅ Swagger API Documentation
+- ✅ Responsive UI with ReactJS
+- ✅ SQLite database for easy setup
+- ✅ Testing (Unit & E2E on backend)
+- ✅ Clean architecture, scalable design
+
+--- 
 
 ## 🚀 Deployment (Optional)
-Backend (NestJS)
-npm run build
-npm run start:prod
+- Backend (NestJS)
+- npm run build
+- npm run start:prod
 
 Frontend (ReactJS)
-npm run build
+- npm run build
 Deploy the build/ folder to Netlify, Vercel, etc.
+---
 
 ## 👥 Team Members
 - 👤 Godfred Owusu Mireku
@@ -101,9 +108,11 @@ Deploy the build/ folder to Netlify, Vercel, etc.
 - 👤 Eugene Oppong Okyere
 
 Thank you for checking out our project! 😊
+--- 
 
 ## 📄 License
 This project is licensed under the MIT License.
+---
 
 ## 🔗 Resources
 
