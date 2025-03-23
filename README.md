@@ -51,28 +51,28 @@ Whether you are a librarian, a reader, or just someone who loves organized data,
 ---
 
 ### 1. Clone the Repository
-```bash
 git clone https://github.com/your-username/library-book-management-system.git
 cd library-book-management-system
 
-⚙️ Setting Up the Backend (Server)
+### ⚙️ Setting Up the Backend (Server)
 cd server
 npm install
 npm run seed         # (Optional) Populate with fake data
 npm run start:dev
 
 API Documentation:
-Swagger UI: 👉 http://localhost:3000/api
+- Swagger UI: 👉 http://localhost:3000/api
 
 
-⚙️ Setting Up the Frontend (Client)
+### ⚙️ Setting Up the Frontend (Client)
 cd client
 npm install
 npm start
+
 Frontend Runs On:
 👉 http://localhost:3000
 
-🔥 Features
+## 🔥 Features
 ✅ Author & Book Management (CRUD)
 ✅ Book Ratings and Average Computation
 ✅ Search, Filter, and Sort
@@ -82,7 +82,7 @@ Frontend Runs On:
 ✅ Testing (Unit & E2E on backend)
 ✅ Clean architecture, scalable design
 
-🚀 Deployment (Optional)
+## 🚀 Deployment (Optional)
 Backend (NestJS)
 npm run build
 npm run start:prod
@@ -91,27 +91,25 @@ Frontend (ReactJS)
 npm run build
 # Deploy the build/ folder to Netlify, Vercel, etc.
 
-👥 Team Members
-👤 GODFRED OWUSU MIREKU
+## 👥 Team Members
+- 👤 Godfred Owusu Mireku
 
-👤 OTHNIEL NII ARYEE
+- 👤 Othniel Nii Aryee
 
-👤 MENSAVI MAWULI DAVID
+- 👤 Mensavi Mawuli David
 
-👤 EUGENE OPPONG OKYERE
+- 👤 Eugene Oppong Okyere
 
 Thank you for checking out our project! 😊
 
-📄 License
+## 📄 License
 This project is licensed under the MIT License.
 
-🔗 Resources
-ReactJS
+## 🔗 Resources
+## 🔗 Resources
 
-NestJS
-
-TypeORM
-
-SQLite
-
-Swagger UI
+- [ReactJS](https://reactjs.org/)
+- [NestJS](https://nestjs.com/)
+- [TypeORM](https://typeorm.io/)
+- [SQLite](https://www.sqlite.org/)
+- [Swagger UI](https://swagger.io/tools/swagger-ui/)
