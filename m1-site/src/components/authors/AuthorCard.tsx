@@ -3,7 +3,6 @@
 import React from "react";
 import Link from "next/link";
 import { Author } from "../../models/Author";
-import { Rat } from "lucide-react";
 import Ratings from "../ui/Ratings";
 
 type AuthorCardProps = {
