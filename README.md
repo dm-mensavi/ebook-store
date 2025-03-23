@@ -50,13 +50,15 @@ Whether you are a librarian, a reader, or just someone who loves organized data,
 
 ---
 
-### Clone the Repository
+## Clone the Repository
+
 - git clone https://github.com/your-username/library-book-management-system.git
 - cd library-book-management-system
 
----
+
 
 ### ⚙️ Setting Up the Backend (Server)
+
 - cd server
 - npm install
 - npm run seed         # (Optional) Populate with fake data
@@ -67,6 +69,7 @@ API Documentation:
 
 
 ### ⚙️ Setting Up the Frontend (Client)
+
 - cd client
 - npm install
 - npm start
