@@ -89,11 +89,11 @@ Frontend Runs On:
 --- 
 
 ## 🚀 Deployment (Optional)
-- Backend (NestJS)
+### Backend (NestJS):
 - npm run build
 - npm run start:prod
 
-Frontend (ReactJS)
+### Frontend (ReactJS):
 - npm run build
 Deploy the build/ folder to Netlify, Vercel, etc.
 ---
@@ -108,10 +108,12 @@ Deploy the build/ folder to Netlify, Vercel, etc.
 - 👤 Eugene Oppong Okyere
 
 Thank you for checking out our project! 😊
+
 --- 
 
 ## 📄 License
 This project is licensed under the MIT License.
+
 ---
 
 ## 🔗 Resources
