@@ -1,128 +1,46 @@
-# 📚 Library Book Management System
+# Getting Started with Create React App
 
-An end-to-end **Library Book Management System** designed and developed by a team of four passionate developers. This project showcases a complete **MERN-like stack** experience, combining a **ReactJS** frontend with a **NestJS + TypeORM + SQLite** backend.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
----
+## Available Scripts
 
-## 🚀 Live Demo
-🔗 [Optional: Link to deployed app if you have one]
+In the project directory, you can run:
 
----
+### `npm start`
 
-## ✨ About The Project
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-This system allows users to:
-- 📖 Manage Authors and their Books  
-- ⭐ Rate Books and view average ratings  
-- 🔍 Search and filter data  
-- 🛠️ Enjoy seamless CRUD operations  
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
 
-Whether you are a librarian, a reader, or just someone who loves organized data, this system offers a sleek interface on the client side and powerful RESTful APIs on the backend.
+### `npm test`
 
----
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-## 🛠️ Tech Stack Overview
+### `npm run build`
 
-| Frontend (Client)      | Backend (Server)               |
-|------------------------|--------------------------------|
-| ReactJS (CRA)          | NestJS (Node.js + TypeScript)  |
-| HTML/CSS/JavaScript    | TypeORM (ORM)                  |
-| React Router DOM       | SQLite (Database)              |
-| Axios (API Requests)   | Swagger (API Docs)             |
-| React Hooks / Context  | Jest & Supertest (Testing)     |
-| ESLint / Prettier      | Faker.js (Data Seeder)         |
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
----
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-## 🏗️ Project Structure
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-/root-project-folder/ │ ├── client/ # ReactJS frontend │ ├── public/ │ ├── src/ │ ├── package.json │ └── ... │ ├── server/ # NestJS backend │ ├── src/ │ ├── library.db │ ├── package.json │ └── ... │ └── README.md # This file!
+### `npm run eject`
 
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
----
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-## 📦 Getting Started
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-### Prerequisites
-- Node.js (v18+ recommended)
-- npm (v9+)
-- Git
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
----
+## Learn More
 
-## Clone the Repository
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-- git clone https://github.com/your-username/library-book-management-system.git
-- cd library-book-management-system
-
-
-
-### ⚙️ Setting Up the Backend (Server)
-
-- cd server
-- npm install
-- npm run seed         # (Optional) Populate with fake data
-- npm run start:dev
-
-API Documentation:
-- Swagger UI: 👉 http://localhost:3000/api
-
-
-### ⚙️ Setting Up the Frontend (Client)
-
-- cd client
-- npm install
-- npm start
-
-Frontend Runs On:
-👉 http://localhost:3000
-
---- 
-
-## 🔥 Features
-- ✅ Author & Book Management (CRUD)
-- ✅ Book Ratings and Average Computation
-- ✅ Search, Filter, and Sort
-- ✅ Swagger API Documentation
-- ✅ Responsive UI with ReactJS
-- ✅ SQLite database for easy setup
-- ✅ Testing (Unit & E2E on backend)
-- ✅ Clean architecture, scalable design
-
---- 
-
-## 🚀 Deployment (Optional)
-### Backend (NestJS):
-- npm run build
-- npm run start:prod
-
-### Frontend (ReactJS):
-- npm run build
-- Deploy the build/ folder to Netlify, Vercel, etc.
----
-
-## 👥 Team Members
-- 👤 Godfred Owusu Mireku
-
-- 👤 Othniel Nii Aryee
-
-- 👤 Mensavi Mawuli David
-
-- 👤 Eugene Oppong Okyere
-
-Thank you for checking out our project! 😊
-
---- 
-
-## 📄 License
-This project is licensed under the MIT License.
-
----
-
-## 🔗 Resources
-
-- [ReactJS](https://reactjs.org/)
-- [NestJS](https://nestjs.com/)
-- [TypeORM](https://typeorm.io/)
-- [SQLite](https://www.sqlite.org/)
-- [Swagger UI](https://swagger.io/tools/swagger-ui/)
+To learn React, check out the [React documentation](https://reactjs.org/).
