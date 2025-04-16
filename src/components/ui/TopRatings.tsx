@@ -3,7 +3,6 @@ import { getBooks } from "../../providers/bookProvider";
 import { Book } from "../../models/Book";
 import Link from "next/link";
 import Ratings from "../../components/ui/Ratings";
-import PageTitle from "../../components/ui/PageTitle";
 import { motion } from "framer-motion";
 import Loading from "./Loading";
 const TopRatings = () => {

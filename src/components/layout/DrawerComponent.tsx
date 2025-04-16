@@ -13,21 +13,8 @@ const DrawerComponent: React.FC<DrawerComponentProps> = ({
   bookId,
   averageRating,
 }) => {
-  const labels: { [index: string]: string } = {
-    0.5: "Useless",
-    1: "Useless+",
-    1.5: "Poor",
-    2: "Poor+",
-    2.5: "Ok",
-    3: "Ok+",
-    3.5: "Good",
-    4: "Good+",
-    4.5: "Excellent",
-    5: "Excellent+",
-  };
+
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [value, setValue] = React.useState<number | null>(2);
-  const [hover, setHover] = React.useState(-1);
 
   const toggleDrawer =
     (open: boolean) =>

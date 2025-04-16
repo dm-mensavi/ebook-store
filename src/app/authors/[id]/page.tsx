@@ -140,7 +140,7 @@ const AuthorDetailsPage: React.FC = () => {
       <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 mb-10">
         <img
           src={author.photo || "https://via.placeholder.com/150"}
-          alt={`Photo of ${author.name}`}
+          alt={`${author.name}`}
           className="w-40 h-40 object-cover rounded-full shadow"
         />
 

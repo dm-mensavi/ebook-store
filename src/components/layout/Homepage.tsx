@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { BookOpen, Target, BadgeCheck, Brain, Book } from "lucide-react"; // Example icons
 import "../../styles/globals.css";
 import Link from "next/link";

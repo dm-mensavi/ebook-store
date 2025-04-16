@@ -2,7 +2,7 @@
 
 import { ReactNode, useState } from "react";
 import Link from "next/link";
-import { ChevronDown, Menu, X, Github } from "lucide-react"; // Github icon added here
+import {  Menu, X, Github } from "lucide-react"; // Github icon added here
 import Footer from "./Footer";
 
 type GlobalLayoutProps = {

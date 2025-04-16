@@ -1,5 +1,4 @@
 import { Rating } from "../models/Rating";
-import { Book } from "../models/Book";
 import { updateBook, getStoredBooks } from "./bookProvider";
 
 // Utility to generate a unique ID

@@ -1,4 +1,3 @@
-import { Author } from "./Author"; // Importing Author to reference it
 
 export type Book = {
   id: string;

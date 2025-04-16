@@ -5,7 +5,6 @@ import PageTitle from "../components/ui/PageTitle";
 import TopRatings from "../components/ui/TopRatings"; // Assuming you have this component
 import TopAuthors from "../components/ui/TopAuthors";
 import HomePage from "../components/layout/Homepage";
-import Footer from "../components/layout/Footer";
 
 const Home: React.FC = () => {
   return (

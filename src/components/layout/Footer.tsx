@@ -1,5 +1,5 @@
 import React from "react";
-import { Facebook, Twitter, Instagram, Github, GithubIcon } from "lucide-react";
+import { GithubIcon } from "lucide-react";
 import Link from "next/link";
 import Avatar from "@mui/material/Avatar";
 import AvatarGroup from "@mui/material/AvatarGroup";

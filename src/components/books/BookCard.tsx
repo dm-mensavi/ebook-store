@@ -1,9 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import { Book } from "../../models/Book";
-import Rating from "@mui/material/Rating";
-import StarIcon from "@mui/icons-material/Star";
-import RatingCard from "../ratings/RatingCard";
-import DrawerComponent from "../layout/DrawerComponent";
 import Ratings from "../ui/Ratings";
 
 type BookCardProps = {
@@ -11,7 +7,6 @@ type BookCardProps = {
 };
 
 const BookCard: React.FC<BookCardProps> = ({ book }) => {
-  const [showRatings, setShowRatings] = useState<boolean>(false);
   const lengthOfTitle = 20;
   return (
     <div className="p-4 border rounded-lg shadow-sm hover:shadow-md transition-shadow">
@@ -37,15 +32,6 @@ const BookCard: React.FC<BookCardProps> = ({ book }) => {
       ) : (
         <p className="mt-2 text-sm text-gray-500">No ratings yet.</p>
       )}
-
-      {/* <button
-        className="mt-4 text-blue-500 hover:text-blue-700"
-        onClick={() => setShowRatings(!showRatings)}
-      >
-        {showRatings ? "Hide Ratings" : "Show Ratings"}
-      </button> */}
-
-      {/* {showRatings && <RatingCard bookId={book.id} />} */}
     </div>
   );
 };
