@@ -1,5 +1,4 @@
 import { Book } from "../models/Book";
-import { Author } from "../models/Author";
 import { addBookToAuthor, removeBookFromAuthor, getAuthorById, getStoredAuthors } from "./authorProvider";
 import { deleteRatingsByBookId } from "./ratingProvider";
 

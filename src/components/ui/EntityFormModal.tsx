@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState, useEffect } from "react";
 import Input from "../../components/ui/Input";
 import Button from "../../components/ui/Button";
@@ -39,7 +38,7 @@ const EntityFormModal: React.FC<EntityFormModalProps> = ({
       });
       setFormData(defaults);
     }
-  }, [isOpen]);
+  }, [isOpen, fields, initialData]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>

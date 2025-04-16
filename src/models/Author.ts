@@ -1,4 +1,3 @@
-import { Book } from "./Book";
 export type Author = {
   id: string;
   name: string;
