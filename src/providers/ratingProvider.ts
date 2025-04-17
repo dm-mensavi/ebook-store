@@ -1,5 +1,5 @@
 import { Rating } from "../models/Rating";
-import { updateBook, getStoredBooks } from "./bookProvider";
+import { updateBook, initializeBooks, getBooks } from "./bookProvider";
 
 // Utility to generate a unique ID
 const generateId = (): string => {
@@ -11,38 +11,55 @@ const STORAGE_KEY = "ratings";
 const VERSION_KEY = "ratings_version";
 const CURRENT_VERSION = "1.0"; // Increment when sampleRatings change
 
-// Initialize ratings from localStorage or use sample data
-export const getStoredRatings = (): Rating[] => {
-  if (typeof window === "undefined") return []; // Handle SSR
+// Sample ratings data (used as fallback or initial data)
+const sampleRatings: Rating[] = [
+  { id: generateId(), bookId: "", stars: 5, comment: "A timeless classic!", createdAt: new Date().toISOString() },
+  { id: generateId(), bookId: "", stars: 4, comment: "Really enjoyed it.", createdAt: new Date().toISOString() },
+  { id: generateId(), bookId: "", stars: 5, comment: "A must-read!", createdAt: new Date().toISOString() },
+  { id: generateId(), bookId: "", stars: 4, comment: "Thought-provoking.", createdAt: new Date().toISOString() },
+  { id: generateId(), bookId: "", stars: 4, comment: "Beautifully written.", createdAt: new Date().toISOString() },
+  { id: generateId(), bookId: "", stars: 5, comment: "Gripping story!", createdAt: new Date().toISOString() },
+  { id: generateId(), bookId: "", stars: 5, comment: "Heart-wrenching.", createdAt: new Date().toISOString() },
+  { id: generateId(), bookId: "", stars: 5, comment: "Magical!", createdAt: new Date().toISOString() },
+  { id: generateId(), bookId: "", stars: 5, comment: "Loved it!", createdAt: new Date().toISOString() },
+  { id: generateId(), bookId: "", stars: 4, comment: "Classic mystery.", createdAt: new Date().toISOString() },
+];
+
+// In-memory store (initially empty, populated client-side)
+let ratings: Rating[] = [];
+
+// Client-side initialization of ratings
+export const initializeRatings = async (): Promise<void> => {
+  if (typeof window === "undefined") return; // Skip on server
   const storedVersion = localStorage.getItem(VERSION_KEY);
   const stored = localStorage.getItem(STORAGE_KEY);
 
   if (storedVersion !== CURRENT_VERSION || !stored) {
-    // Sample data: ratings for some books
-    const sampleRatings: Rating[] = [
-      { id: generateId(), bookId: getStoredBooks()[0].id, stars: 5, comment: "A timeless classic!", createdAt: new Date().toISOString() },
-      { id: generateId(), bookId: getStoredBooks()[0].id, stars: 4, comment: "Really enjoyed it.", createdAt: new Date().toISOString() },
-      { id: generateId(), bookId: getStoredBooks()[2].id, stars: 5, comment: "A must-read!", createdAt: new Date().toISOString() },
-      { id: generateId(), bookId: getStoredBooks()[2].id, stars: 4, comment: "Thought-provoking.", createdAt: new Date().toISOString() },
-      { id: generateId(), bookId: getStoredBooks()[4].id, stars: 4, comment: "Beautifully written.", createdAt: new Date().toISOString() },
-      { id: generateId(), bookId: getStoredBooks()[6].id, stars: 5, comment: "Gripping story!", createdAt: new Date().toISOString() },
-      { id: generateId(), bookId: getStoredBooks()[8].id, stars: 5, comment: "Heart-wrenching.", createdAt: new Date().toISOString() },
-      { id: generateId(), bookId: getStoredBooks()[10].id, stars: 5, comment: "Magical!", createdAt: new Date().toISOString() },
-      { id: generateId(), bookId: getStoredBooks()[12].id, stars: 5, comment: "Loved it!", createdAt: new Date().toISOString() },
-      { id: generateId(), bookId: getStoredBooks()[14].id, stars: 4, comment: "Classic mystery.", createdAt: new Date().toISOString() },
-    ];
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(sampleRatings));
+    // Initialize books first
+    await initializeBooks();
+    const books = await getBooks();
+
+    // Assign book IDs to sample ratings
+    const initializedRatings = sampleRatings.map((rating, index) => {
+      const bookIndex = [0, 0, 2, 2, 4, 6, 8, 10, 12, 14][index];
+      const book = books[bookIndex];
+      if (!book) {
+        console.warn(`Book not found for rating at index ${index}`);
+        return { ...rating };
+      }
+      return { ...rating, bookId: book.id };
+    });
+
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(initializedRatings));
     localStorage.setItem(VERSION_KEY, CURRENT_VERSION);
-    return sampleRatings;
+    ratings = initializedRatings;
+  } else {
+    ratings = JSON.parse(stored);
   }
-  return JSON.parse(stored);
 };
 
-// In-memory store
-let ratings: Rating[] = getStoredRatings();
-
-// Persist ratings to localStorage
-const persistRatings = () => {
+// Persist ratings to localStorage (client-only)
+const persistRatings = (): void => {
   if (typeof window !== "undefined") {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(ratings));
     localStorage.setItem(VERSION_KEY, CURRENT_VERSION);
@@ -51,6 +68,9 @@ const persistRatings = () => {
 
 // Update book's average rating
 const updateBookAverageRating = async (bookId: string): Promise<void> => {
+  if (ratings.length === 0 && typeof window !== "undefined") {
+    await initializeRatings();
+  }
   const bookRatings = ratings.filter((r) => r.bookId === bookId);
   const averageRating =
     bookRatings.length > 0
@@ -62,6 +82,9 @@ const updateBookAverageRating = async (bookId: string): Promise<void> => {
 // Get ratings by book ID
 export const getRatingsByBookId = async (bookId: string): Promise<Rating[]> => {
   return new Promise((resolve) => {
+    if (ratings.length === 0 && typeof window !== "undefined") {
+      initializeRatings();
+    }
     const bookRatings = ratings.filter((r) => r.bookId === bookId);
     setTimeout(() => resolve(bookRatings), 100);
   });
@@ -75,6 +98,9 @@ export const createRating = async (ratingData: {
 }): Promise<Rating> => {
   return new Promise((resolve, reject) => {
     try {
+      if (ratings.length === 0 && typeof window !== "undefined") {
+        initializeRatings();
+      }
       const newRating: Rating = {
         id: generateId(),
         bookId: ratingData.bookId,
@@ -84,7 +110,6 @@ export const createRating = async (ratingData: {
       };
       ratings.push(newRating);
       persistRatings();
-      // Update book's average rating
       updateBookAverageRating(ratingData.bookId).then(() => {
         setTimeout(() => resolve(newRating), 100);
       });
@@ -99,6 +124,9 @@ export const createRating = async (ratingData: {
 export const deleteRatingsByBookId = async (bookId: string): Promise<void> => {
   return new Promise((resolve, reject) => {
     try {
+      if (ratings.length === 0 && typeof window !== "undefined") {
+        initializeRatings();
+      }
       ratings = ratings.filter((r) => r.bookId !== bookId);
       persistRatings();
       setTimeout(() => resolve(), 100);
